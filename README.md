@@ -51,6 +51,18 @@ python analyze_sd2vec.py --input outputs_d1 --top-k 10
 
 `raw_scores.jsonl`は逐次追記されるため、中断後は同じコマンドで再開できます。
 
+## chiVe語彙からの大規模選定
+
+chiVe v1.3の語彙は頻度順に並んでいます。まず`mc90`（最小頻度90、全300次元）
+を取得し、上位50,000語を走査して不要な機能語・数値・記号を除外し、上位10,000語を
+選びます。選定結果にはchiVe順位を保存します。
+
+```bash
+python select_chive_vocab.py data/chive/chive-1.3-mc90.tar.gz \
+  --scan-limit 50000 --limit 10000 \
+  --output data/chive_vocab_10000.csv
+```
+
 ## 注意
 
 これは人間評定の正解データではなく、d1-3Bが生成した印象ベクトルです。

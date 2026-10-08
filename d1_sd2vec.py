@@ -20,11 +20,11 @@ from transformers import AutoModel
 def args() -> argparse.Namespace:
     p = argparse.ArgumentParser()
     p.add_argument("--model", default="LiquidAI/d1-3B")
-    p.add_argument("--concepts", type=Path, default=Path("concepts_phase2.txt"))
+    p.add_argument("--concepts", type=Path, default=Path("concepts_chive_10000.txt"))
     p.add_argument("--dimensions", type=Path, default=Path("dimensions_phase2.json"))
-    p.add_argument("--output", type=Path, default=Path("outputs_d1"))
-    p.add_argument("--limit", type=int, default=200)
-    p.add_argument("--repeats", type=int, default=2)
+    p.add_argument("--output", type=Path, default=Path("outputs_chive_10000"))
+    p.add_argument("--limit", type=int, default=10_000)
+    p.add_argument("--repeats", type=int, default=1)
     p.add_argument("--batch-size", type=int, default=16)
     return p.parse_known_args()[0]
 
