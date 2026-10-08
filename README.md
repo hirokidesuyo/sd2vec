@@ -295,6 +295,37 @@ python analyze_osgood.py \
 「LLMの頭の中」に人間と同じ構造があると結論するには、人間評定データとの負荷量比較や、
 別モデル・別プロンプト・別語彙での再現性検証が必要です。
 
+## 類推結果のロバストネスを調べる
+
+`王−男＋女`のような類推は、平均方向、尺度ごとの分散、語彙内のハブ語に影響されます。
+次の分析では、通常のコサインに加えて、全語彙平均を引いた中心化コサイン、
+尺度z-score化、CSLS(k=10)、保守的な人名候補除外、ユークリッド距離を比較します。
+
+```bash
+python analyze_analogy_robustness.py \
+  --input outputs_chive_10000_phase3 \
+  --output analogy_robustness \
+  --topn 20 \
+  --csls-k 10
+```
+
+主な出力は次のとおりです。
+
+- `analogy_robustness/report.md`: 順位と解釈の要約
+- `analogy_robustness/analogy_results.csv`: 前処理・CSLS・人名候補除外ごとの上位語
+- `analogy_robustness/gender_difference_axes.csv`: `女−男`の尺度別差分
+- `analogy_robustness/summary.json`: 対照実験、順位、距離比較の全結果
+
+10,000語×50尺度データでは、`女王`は通常コサインで150位でしたが、
+中心化コサインで16位、尺度z-score化コサインで25位、CSLS(k=10)で14位まで上昇しました。
+一方、z-score化後のユークリッド距離では533位でした。つまり、この類推の評価は
+「方向」を見るか「位置」を見るか、またハブ補正を行うかで変わります。
+
+`女−男`のz差が大きかった尺度は`strong`(-1.50)、`calm`(+1.08)、
+`creative`(+1.00)、`warm`(+1.00)、`large`(-0.90)、`powerful`(-0.81)などでした。
+50尺度に「男らしい−女らしい」を直接表す軸はないため、性差は既存尺度の組合せとして現れます。
+人名除外は完全な固有表現認識ではなく、明らかな姓・人名候補を使った感度分析です。
+
 ## 尺度の追加・変更
 
 尺度はJSON配列で定義します。
