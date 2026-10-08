@@ -170,6 +170,25 @@ https://hirokidesuyo.github.io/sd2vec/
 `.github/workflows/pages.yml`で行います。リポジトリSettingsのPagesで、初回のみ
 Sourceを**GitHub Actions**に設定してください。
 
+### 大規模語彙の生成
+
+chiVe v1.3 mc90の先頭から、現在は品質フィルタ後の20万語を選定しています。
+一度に巨大なJSONLへ書き込まず、1万語ずつ20チャンクに分けて生成します。
+
+```powershell
+python select_chive_vocab.py data/chive/chive-1.3-mc90.tar.gz `
+  --scan-limit 0 --limit 200000 `
+  --output data/chive_vocab_200000.csv
+python prepare_chive_chunks.py data/chive_vocab_200000.csv `
+  --output large_vocab_200000 --chunk-size 10000
+python run_sd2vec_chunks.py large_vocab_200000/manifest.json `
+  --batch-size 16
+```
+
+`run_sd2vec_chunks.py`は各チャンクの`quality.json`を完了印として使います。
+Colabが切断された場合も同じコマンドを再実行すれば完了済みチャンクを飛ばして続きから再開できます。
+生成済みチャンクは`large_vocab_200000/vectors/`に保存されます。推論にはGPU環境が必要です。
+
 ## 収録データ
 
 ### d1-3B・200概念・30尺度

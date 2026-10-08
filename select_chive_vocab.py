@@ -45,7 +45,12 @@ def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("archive", type=Path)
     p.add_argument("--limit", type=int, default=10_000)
-    p.add_argument("--scan-limit", type=int, default=50_000)
+    p.add_argument(
+        "--scan-limit",
+        type=int,
+        default=50_000,
+        help="先頭から読む行数。0ならアーカイブ末尾まで読む。",
+    )
     p.add_argument("--output", type=Path, default=Path("chive_vocab_10000.csv"))
     args = p.parse_args()
 
@@ -60,7 +65,7 @@ def main() -> None:
         if len(header) != 2 or int(header[1]) != 300:
             raise ValueError(f"unexpected chiVe header: {header}")
         for raw in stream:
-            if scanned >= args.scan_limit or len(selected) >= args.limit:
+            if (args.scan_limit and scanned >= args.scan_limit) or len(selected) >= args.limit:
                 break
             scanned += 1
             word = raw.decode("utf-8").split(" ", 1)[0]
