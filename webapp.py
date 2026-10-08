@@ -153,17 +153,20 @@ details summary { cursor:pointer; color:var(--accent); }
   </section>
   <section class="card">
     <div class="form">
-      <div><label for="left">左の語</label><input id="left" value="勝利" list="words"></div>
+      <div><label for="left">左の語</label><input id="left" value="春" list="words"></div>
       <span>と</span>
-      <div><label for="right">右の語</label><input id="right" value="敗北" list="words"></div>
+      <div><label for="right">右の語</label><input id="right" value="秋" list="words"></div>
       <button onclick="analyze()">比較する</button>
     </div>
     <div class="presets">
-      <button class="preset" onclick="setPair('勝利','敗北')">勝利 / 敗北</button>
       <button class="preset" onclick="setPair('春','秋')">春 / 秋</button>
       <button class="preset" onclick="setPair('高い','低い')">高い / 低い</button>
-      <button class="preset" onclick="setPair('倹約','ケチ')">倹約 / ケチ</button>
-      <button class="preset" onclick="setPair('痩せている','ガリガリ')">痩せている / ガリガリ</button>
+      <button class="preset" onclick="setPair('強い','弱い')">強い / 弱い</button>
+      <button class="preset" onclick="setPair('明るい','暗い')">明るい / 暗い</button>
+      <button class="preset" onclick="setPair('上','下')">上 / 下</button>
+      <button class="preset" onclick="setPair('生','死')">生 / 死</button>
+      <button class="preset" onclick="setPair('成功','失敗')">成功 / 失敗</button>
+      <button class="preset" onclick="setPair('王','女王')">王 / 女王</button>
     </div>
     <datalist id="words"></datalist>
     <div id="error" class="error hidden"></div>
