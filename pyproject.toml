@@ -16,6 +16,10 @@ dev = ["pytest>=8"]
 
 [project.scripts]
 sd2vec-neighbors = "sd2vec.cli:main"
+sd2vec-web = "webapp:main"
+
+[tool.setuptools]
+py-modules = ["webapp"]
 
 [tool.setuptools.packages.find]
 include = ["sd2vec*"]
