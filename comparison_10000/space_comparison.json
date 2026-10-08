@@ -1,0 +1,8 @@
+{
+  "common_words": 10000,
+  "sample_size": 2000,
+  "sd_dimension": 50,
+  "chive_dimension": 300,
+  "similarity_matrix_pearson": 0.17004946179918404,
+  "note": "Different spaces are compared by within-space similarities, not raw vector equality."
+}

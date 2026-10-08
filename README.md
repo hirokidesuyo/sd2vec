@@ -51,6 +51,21 @@ python analyze_sd2vec.py --input outputs_d1 --top-k 10
 
 `raw_scores.jsonl`は逐次追記されるため、中断後は同じコマンドで再開できます。
 
+## chiVeとの比較
+
+chiVeの300次元分布意味空間と、sd2vecの50次元SD空間を同じ語彙上で比較できます。
+生のベクトルを直接比較せず、それぞれの空間内のコサイン類似度行列を比較します。
+
+```bash
+python compare_spaces.py \
+  --chive data/chive/chive-1.3-mc90.tar.gz \
+  --selection data/chive_vocab_10000.csv \
+  --sd outputs_chive_10000_phase3 \
+  --output comparison_10000
+```
+
+出力は、空間間の類似度相関、語ごとの最近傍比較、50尺度の上位・下位語です。
+
 ## chiVe語彙からの大規模選定
 
 chiVe v1.3の語彙は頻度順に並んでいます。まず`mc90`（最小頻度90、全300次元）
