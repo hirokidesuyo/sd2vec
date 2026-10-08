@@ -270,7 +270,11 @@ class Handler(BaseHTTPRequestHandler):
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", type=Path, default=DEFAULT_DATA)
-    parser.add_argument("--host", default="127.0.0.1")
+    parser.add_argument(
+        "--host",
+        default="0.0.0.0",
+        help="待受アドレス。Tailscaleから接続するには0.0.0.0またはTailscale IPを指定",
+    )
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--no-browser", action="store_true")
     args = parser.parse_args()
@@ -279,8 +283,14 @@ def main() -> None:
     Handler.dimensions = dimensions
     Handler.vectors = vectors
     server = ThreadingHTTPServer((args.host, args.port), Handler)
-    url = f"http://{args.host}:{args.port}/"
+    browser_host = "127.0.0.1" if args.host == "0.0.0.0" else args.host
+    url = f"http://{browser_host}:{args.port}/"
     print(f"sd2vec web app: {url}")
+    if args.host == "0.0.0.0":
+        print(
+            "全インターフェースで待受中です。Tailscale端末からは "
+            f"http://<このPCのTailscale IP>:{args.port}/ に接続してください。"
+        )
     if not args.no_browser:
         threading.Timer(0.5, lambda: webbrowser.open(url)).start()
     try:

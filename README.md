@@ -113,7 +113,28 @@ python webapp.py
 sd2vec-web
 ```
 
-ブラウザで`http://127.0.0.1:8765/`を開き、例えば次を試せます。
+起動するとローカルでは`http://127.0.0.1:8765/`が開きます。既定では全インターフェースで
+待ち受けるため、Tailscaleで接続された別端末からは、このPCのTailscale IPを確認して
+`http://<Tailscale IP>:8765/`を開いてください。
+
+```bash
+# Windows
+tailscale ip -4
+
+# Tailscale IPを明示して待受する場合
+python webapp.py --host 100.x.y.z --port 8765 --no-browser
+```
+
+例えばTailscale IPが`100.64.12.34`なら、
+`http://100.64.12.34:8765/`にアクセスします。Windows Defender Firewallで
+TCP 8765番ポートの受信がブロックされる場合は、プライベートネットワークまたは
+Tailscaleインターフェースからの受信を許可してください。
+
+このWebアプリには認証機能がありません。Tailscaleのアクセス制御されたネットワーク内だけで
+使い、インターネットへポート転送しないでください。ローカル限定に戻す場合は
+`python webapp.py --host 127.0.0.1`を指定します。
+
+例えば次を試せます。
 
 - `勝利` / `敗北`
 - `春` / `秋`
