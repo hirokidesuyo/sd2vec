@@ -1,0 +1,11 @@
+{
+  "concept_count": 50,
+  "dimension_count": 12,
+  "vector_shape": [
+    50,
+    12
+  ],
+  "mean_repeat_std": 0.3774999976158142,
+  "max_repeat_std": 2.0,
+  "nonzero_fraction": 0.6516666666666666
+}

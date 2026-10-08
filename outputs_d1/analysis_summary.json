@@ -1,0 +1,18 @@
+{
+  "concept_count": 200,
+  "dimension_count": 30,
+  "vector_shape": [
+    200,
+    30
+  ],
+  "mean_repeat_std": 0.0,
+  "max_repeat_std": 0.0,
+  "nonzero_fraction": 1.0,
+  "csv_encoding": "utf-8-sig",
+  "nearest_neighbor_metric": "cosine",
+  "top_k": 5,
+  "artifacts": [
+    "vectors.csv",
+    "nearest_neighbors.csv"
+  ]
+}
