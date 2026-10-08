@@ -1,0 +1,259 @@
+{
+  "input": "outputs_chive_10000_phase3",
+  "vocabulary_size": 10000,
+  "dimensions": 50,
+  "random_pairs": 100000,
+  "seed": 42,
+  "antonym_pairs_requested": [
+    {
+      "left": "勝利",
+      "right": "敗北"
+    },
+    {
+      "left": "光",
+      "right": "闇"
+    },
+    {
+      "left": "春",
+      "right": "秋"
+    },
+    {
+      "left": "上",
+      "right": "下"
+    },
+    {
+      "left": "生",
+      "right": "死"
+    },
+    {
+      "left": "愛",
+      "right": "憎しみ"
+    },
+    {
+      "left": "美しい",
+      "right": "醜い"
+    },
+    {
+      "left": "善",
+      "right": "悪"
+    }
+  ],
+  "antonym_pairs_available": [
+    {
+      "left": "光",
+      "right": "闇"
+    },
+    {
+      "left": "春",
+      "right": "秋"
+    },
+    {
+      "left": "上",
+      "right": "下"
+    },
+    {
+      "left": "生",
+      "right": "死"
+    }
+  ],
+  "missing_pairs": [
+    {
+      "left": "勝利",
+      "right": "敗北",
+      "missing": [
+        "敗北"
+      ]
+    },
+    {
+      "left": "愛",
+      "right": "憎しみ",
+      "missing": [
+        "憎しみ"
+      ]
+    },
+    {
+      "left": "美しい",
+      "right": "醜い",
+      "missing": [
+        "醜い"
+      ]
+    },
+    {
+      "left": "善",
+      "right": "悪",
+      "missing": [
+        "善"
+      ]
+    }
+  ],
+  "methods": {
+    "raw": {
+      "pairs": [
+        {
+          "method": "raw",
+          "left": "光",
+          "right": "闇",
+          "cosine": -0.41471697441592315,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -2.828430757673673,
+          "random_percentile": 0.00745,
+          "random_two_sided_p": 0.00745
+        },
+        {
+          "method": "raw",
+          "left": "春",
+          "right": "秋",
+          "cosine": 0.7404186572907322,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": 1.188601482350807,
+          "random_percentile": 0.91256,
+          "random_two_sided_p": 0.2224
+        },
+        {
+          "method": "raw",
+          "left": "上",
+          "right": "下",
+          "cosine": 0.48361506810343335,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": 0.29555631189297865,
+          "random_percentile": 0.54871,
+          "random_two_sided_p": 0.78458
+        },
+        {
+          "method": "raw",
+          "left": "生",
+          "right": "死",
+          "cosine": 0.030097254809174287,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -1.2815707608273297,
+          "random_percentile": 0.1207,
+          "random_two_sided_p": 0.18273
+        }
+      ],
+      "aggregate": {
+        "antonym_mean": 0.20985350144685416,
+        "random_mean": 0.39862505392288883,
+        "random_std": 0.28755946248009595,
+        "mean_difference": -0.18877155247603467,
+        "z_vs_random_mean": -1.3129218621286085,
+        "antonym_above_random_fraction": 0.5
+      }
+    },
+    "centered": {
+      "pairs": [
+        {
+          "method": "centered",
+          "left": "光",
+          "right": "闇",
+          "cosine": -0.5366147196251748,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -1.7396820228916805,
+          "random_percentile": 0.03046,
+          "random_two_sided_p": 0.07747
+        },
+        {
+          "method": "centered",
+          "left": "春",
+          "right": "秋",
+          "cosine": 0.5944790880192659,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": 1.9025457106501342,
+          "random_percentile": 0.96861,
+          "random_two_sided_p": 0.04772
+        },
+        {
+          "method": "centered",
+          "left": "上",
+          "right": "下",
+          "cosine": 0.012293037207068737,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": 0.02785223605201901,
+          "random_percentile": 0.52515,
+          "random_two_sided_p": 0.97943
+        },
+        {
+          "method": "centered",
+          "left": "生",
+          "right": "死",
+          "cosine": -0.24277245836050476,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.7934824892794773,
+          "random_percentile": 0.234,
+          "random_two_sided_p": 0.46051
+        }
+      ],
+      "aggregate": {
+        "antonym_mean": -0.04315376318983625,
+        "random_mean": 0.0036435254158730277,
+        "random_std": 0.31054999587972776,
+        "mean_difference": -0.046797288605709274,
+        "z_vs_random_mean": -0.3013832827345024,
+        "antonym_above_random_fraction": 0.5
+      }
+    },
+    "zscore": {
+      "pairs": [
+        {
+          "method": "zscore",
+          "left": "光",
+          "right": "闇",
+          "cosine": -0.5589733636124724,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.8766942702545752,
+          "random_percentile": 0.02038,
+          "random_two_sided_p": 0.05389
+        },
+        {
+          "method": "zscore",
+          "left": "春",
+          "right": "秋",
+          "cosine": 0.43608158288158266,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": 1.435600338579363,
+          "random_percentile": 0.91463,
+          "random_two_sided_p": 0.1586
+        },
+        {
+          "method": "zscore",
+          "left": "上",
+          "right": "下",
+          "cosine": -0.15953315196730147,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -0.547055475688077,
+          "random_percentile": 0.31273,
+          "random_two_sided_p": 0.60992
+        },
+        {
+          "method": "zscore",
+          "left": "生",
+          "right": "死",
+          "cosine": -0.25185437552773104,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -0.8543702547940875,
+          "random_percentile": 0.21285,
+          "random_two_sided_p": 0.42148
+        }
+      ],
+      "aggregate": {
+        "antonym_mean": -0.13356982705648057,
+        "random_mean": 0.004809191143812219,
+        "random_std": 0.3004125731570582,
+        "mean_difference": -0.1383790182002928,
+        "z_vs_random_mean": -0.9212598310786885,
+        "antonym_above_random_fraction": 0.25
+      }
+    }
+  }
+}
