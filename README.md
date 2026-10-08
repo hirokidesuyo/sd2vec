@@ -1,120 +1,320 @@
 # sd2vec
 
-意味微分法（Semantic Differential）を使った、解釈可能なword2vec風ベクトルです。
+**sd2vec** は、意味微分法（Semantic Differential; SD法）を使って作る、解釈可能な概念ベクトルです。
+通常の word2vec が文章中の共起から分布意味を学習するのに対し、sd2vec は各概念を固定した形容詞対で評定します。
 
-各概念を30個の形容詞対で評定し、`vectors.npy`を概念×尺度の行列として保存します。
-通常の埋め込みと違い、各次元に「快い–不快な」「強い–弱い」などの意味が対応します。
+```text
+概念: 猫
 
-## 使い方
+快い ─────────●── 不快な
+安全な ───────●── 危険な
+自然な ─────────● 不自然な
+```
+
+各ベクトルの次元に意味が割り当てられているため、単なる類似検索だけでなく、
+「どの尺度で似ているのか」「どの概念が快い・危険・現代的なのか」を確認できます。
+
+## 特徴
+
+- d1-3Bなどのdecision modelで大量の概念を評定
+- 各次元が固定したSD尺度に対応
+- `numpy`形式とUTF-8 CSV形式で保存
+- `most_similar()`によるword2vec風の最近傍検索
+- `A + B - C`形式のベクトル演算に対応可能な配列形式
+- chiVeなどの通常の日本語word2vecと同じ語彙上で比較可能
+- JSONLキャッシュにより、長時間処理を中断後に再開可能
+
+## 重要な位置づけ
+
+sd2vecは、人間の心理評定の「正解」を直接収録したデータではありません。
+現在の収録データは、Liquid AIの`d1-3B`が固定した尺度に対して行った評定です。
+したがって、モデルの知識、プロンプト、文化的背景、学習データ由来のバイアスを含みます。
+
+人間評定と一致することを保証するものではありません。研究・製品利用では、対象分野の人間評定で校正し、
+尺度の妥当性、語義、多義語、文化差を検証してください。
+
+## クイックスタート
+
+### インストール
+
+ベクトルの読み込みと検索だけなら、CPU環境で動作します。
+
+```bash
+git clone https://github.com/hirokidesuyo/sd2vec.git
+cd sd2vec
+python -m pip install -e .
+```
+
+推論まで実行する場合は、GPU環境で追加依存関係を入れます。
+
+```bash
+python -m pip install -e ".[inference]"
+```
+
+### Python API
 
 ```python
 from sd2vec import SDVectors
 
-model = SDVectors.load("outputs_d1")
-print(model.vector_size)                 # 30
-print(model.get_vector("猫"))
+model = SDVectors.load("outputs_chive_10000_phase3")
+
+print(model.vector_size)            # 50
+print(model.index_to_key[:3])       # 語彙の先頭
+print(model.get_vector("猫"))       # numpy.ndarray(shape=(50,))
 print(model.most_similar("猫", topn=5))
 ```
 
-CLIでも検索できます。
+`SDVectors`は、主要部分でgensimの`KeyedVectors`に似たインターフェースを提供します。
+
+| 属性・メソッド | 説明 |
+|---|---|
+| `index_to_key` | 語彙を並べたリスト |
+| `key_to_index` | 単語から行番号への辞書 |
+| `vector_size` | ベクトル次元数 |
+| `vectors` | 概念×尺度の`numpy.ndarray` |
+| `get_vector(word)` | 1語のベクトルを取得 |
+| `most_similar(word, topn=10)` | コサイン類似度で最近傍語を取得 |
+| `save_csv(path)` | ベクトルをUTF-8 BOM付きCSVで保存 |
+
+### CLI
 
 ```bash
-pip install -e .
-sd2vec-neighbors outputs_d1 猫 --topn 5
+sd2vec-neighbors outputs_chive_10000_phase3 猫 --topn 10
+```
+
+出力例:
+
+```text
+vector_size=50
+鳥    0.841299
+犬    0.822558
+子ども 0.806674
 ```
 
 ## 収録データ
 
-`outputs_d1`はLiquid AIの`d1-3B`を使った実行例です。
+### d1-3B・200概念・30尺度
 
-- 200概念 × 30尺度
+`outputs_d1/`には動作確認用の小規模データを収録しています。
+
+- 200概念
+- 30尺度
 - 2反復
-- d1の`score`出力（0〜6）をSD値（-3〜3）へ変換
-- `vectors.npy`: 推奨する機械可読ベクトル
-- `vectors.csv`: Excel等で確認するためのUTF-8 CSV
-- `metadata.json`: 概念・尺度・モデル情報
-- `raw_scores.jsonl`: 再計算可能な生データ
-- `nearest_neighbors.csv`: コサイン類似度による最近傍
+- ベクトル形状: `(200, 30)`
 
-## 再生成
+### d1-3B・chiVe語彙10,000語・30尺度
 
-ColabまたはGPU環境で依存関係を入れ、次を実行します。
+`outputs_chive_10000/`には、chiVe v1.3 mc90から選定した10,000語のデータを収録しています。
+
+- 10,000語
+- 30尺度
+- ベクトル形状: `(10000, 30)`
+- `vectors.npy`、`vectors.csv`、最近傍レポートを含む
+
+### d1-3B・chiVe語彙10,000語・50尺度
+
+現在の主な実験データは`outputs_chive_10000_phase3/`です。
+
+- 10,000語
+- 50尺度
+- ベクトル形状: `(10000, 50)`
+- 1反復
+- 10,000行の`raw_scores.jsonl`
+- d1の`score`出力を0〜6からSD値-3〜3へ変換
+
+## 出力ファイル
+
+各出力ディレクトリには、用途に応じて次のファイルが含まれます。
+
+| ファイル | 内容 |
+|---|---|
+| `vectors.npy` | 推奨する機械可読形式。行が概念、列が尺度 |
+| `vectors.csv` | Excel等で確認できるUTF-8 BOM付きCSV |
+| `metadata.json` | 使用モデル、概念一覧、尺度一覧、変換情報 |
+| `raw_scores.jsonl` | 概念ごとの生評定。再開・再計算に使用 |
+| `repeat_std.npy` | 反復実行時の尺度別標準偏差 |
+| `quality.json` | 件数、形状、値域などの品質情報 |
+| `analysis_summary.json` | 最近傍分析の設定と要約 |
+| `nearest_neighbors.csv` | 概念ごとのコサイン最近傍 |
+
+正の値は各尺度の`left`、負の値は`right`側を表します。尺度の定義は必ず
+`metadata.json`または対応する`dimensions_*.json`で確認してください。
+
+## ベクトル演算
+
+ベクトルは`numpy`配列なので、word2vec風の足し算・引き算ができます。
+
+```python
+import numpy as np
+from sd2vec import SDVectors
+
+model = SDVectors.load("outputs_chive_10000_phase3")
+
+query = (
+    model.get_vector("男性")
+    + model.get_vector("女性")
+    - model.get_vector("男")
+)
+
+norms = np.linalg.norm(model.vectors, axis=1)
+scores = model.vectors @ query / (norms * np.linalg.norm(query) + 1e-8)
+excluded = {"男性", "女性", "男"}
+results = [
+    (model.index_to_key[i], float(scores[i]))
+    for i in np.argsort(-scores)
+    if model.index_to_key[i] not in excluded
+][:10]
+print(results)
+```
+
+ただし、sd2vecの軸は評価・印象尺度なので、word2vecで知られている類推が常に成立するとは限りません。
+足し算・引き算の結果は、尺度ごとの構成差として解釈してください。
+
+## 推論データの再生成
+
+### d1-3Bで小規模実行
 
 ```bash
 python d1_sd2vec.py \
   --model LiquidAI/d1-3B \
   --concepts concepts_phase2.txt \
   --dimensions dimensions_phase2.json \
-  --limit 200 --repeats 2 --output outputs_d1
+  --limit 200 \
+  --repeats 2 \
+  --output outputs_d1
+
 python analyze_sd2vec.py --input outputs_d1 --top-k 10
 ```
 
-`raw_scores.jsonl`は逐次追記されるため、中断後は同じコマンドで再開できます。
+### d1-3Bで10,000語・50尺度を実行
 
-## chiVeとの比較
+```bash
+python d1_sd2vec.py \
+  --model LiquidAI/d1-3B \
+  --concepts concepts_chive_10000.txt \
+  --dimensions dimensions_phase3.json \
+  --limit 10000 \
+  --repeats 1 \
+  --output outputs_chive_10000_phase3
 
-chiVeの300次元分布意味空間と、sd2vecの50次元SD空間を同じ語彙上で比較できます。
-生のベクトルを直接比較せず、それぞれの空間内のコサイン類似度行列を比較します。
+python analyze_sd2vec.py \
+  --input outputs_chive_10000_phase3 \
+  --top-k 10
+```
+
+`raw_scores.jsonl`は1概念ごとに追記されます。同じ出力ディレクトリを指定して再実行すると、
+すでに完了した概念をスキップして途中から再開できます。
+
+### Colab CLIで実行
+
+Google Colab CLIを利用する場合の例です。Colab CLI自体はLinux/macOS対応で、
+WindowsではWSLなどを使用してください。
+
+```bash
+colab new -s sd2vec-check --gpu L4
+colab install -s sd2vec-check \
+  "transformers>=5.14" torch torchvision pillow numpy
+colab upload -s sd2vec-check d1_sd2vec.py /content/d1_sd2vec.py
+colab upload -s sd2vec-check dimensions_phase3.json /content/dimensions_phase3.json
+colab upload -s sd2vec-check concepts_chive_10000.txt /content/concepts_chive_10000.txt
+colab exec -s sd2vec-check -f d1_sd2vec.py --timeout 14400
+```
+
+大規模実行では、Colabの切断に備えてJSONLを定期的に回収してください。
+使用しないセッションは停止して、不要なCompute Units消費を避けてください。
+
+## chiVeから語彙を選ぶ
+
+chiVeは日本語のword2vec系ベクトルで、公式データでは全て300次元です。
+v1.3 mc90は最小頻度90の語彙で、全体は約41万語です。語彙ファイルは頻度順に並んでいるため、
+上位から走査して候補を選べます。
+
+このリポジトリでは、まず上位50,000語を読み、URL・数値・記号・一部の機能語を除外し、
+10,000語を採用しています。選定理由とchiVe順位は`data/chive_vocab_10000.csv`に保存しています。
+
+```bash
+python select_chive_vocab.py \
+  data/chive/chive-1.3-mc90.tar.gz \
+  --scan-limit 50000 \
+  --limit 10000 \
+  --output data/chive_vocab_10000.csv
+```
+
+chiVeアーカイブは数百MB〜数GBあるため、元データはGitへコミットしません。
+`.gitignore`で`data/chive/*.tar.gz`を除外しています。
+
+## chiVeとsd2vecを比較する
+
+chiVeの300次元ベクトルとsd2vecの50次元ベクトルは、次元数が異なるため直接比較しません。
+同じ語彙集合について、それぞれの空間内でコサイン類似度を計算し、類似度行列や最近傍語を比較します。
 
 ```bash
 python compare_spaces.py \
   --chive data/chive/chive-1.3-mc90.tar.gz \
   --selection data/chive_vocab_10000.csv \
   --sd outputs_chive_10000_phase3 \
-  --output comparison_10000
+  --output comparison_10000 \
+  --sample-size 2000 \
+  --topn 10
 ```
 
-出力は、空間間の類似度相関、語ごとの最近傍比較、50尺度の上位・下位語です。
+出力:
 
-## chiVe語彙からの大規模選定
+- `space_comparison.json`: 空間内類似度行列の相関
+- `nearest_comparison.jsonl`: 語ごとのsd2vec/chiVe最近傍比較
+- `dimension_extremes.csv`: 各SD尺度の上位・下位語
 
-chiVe v1.3の語彙は頻度順に並んでいます。まず`mc90`（最小頻度90、全300次元）
-を取得し、上位50,000語を走査して不要な機能語・数値・記号を除外し、上位10,000語を
-選びます。選定結果にはchiVe順位を保存します。
+既存の10,000語比較では、sd2vecとchiVeの類似度行列のPearson相関は約0.17でした。
+これは、chiVeが主に共起・文脈的な意味を、sd2vecが評価・印象を捉えるという設計差と整合します。
+この値は品質の優劣を単独で示すものではありません。
+
+## 尺度の追加・変更
+
+尺度はJSON配列で定義します。
+
+```json
+{
+  "id": "pleasant",
+  "left": "快い",
+  "right": "不快な"
+}
+```
+
+尺度を変更した場合、既存ベクトルとの次元対応が変わるため、別の出力ディレクトリを使用してください。
+尺度数を増やす場合は、まず1,000語程度で実行し、尺度間相関を確認してから10,000語へ拡張するのが安全です。
+相関が高すぎる尺度を大量に含めると、類似度計算で特定の意味領域が過大評価されます。
+
+## 既知の制約
+
+- d1はチャットモデルではなく、文章を生成しないdecision modelです。
+- d1の同一入力は決定論的なため、単純な反復の標準偏差は0になることがあります。
+- 不確実性を詳しく扱う場合は、d1の確率分布を保存する拡張が必要です。
+- 多義語は一つのベクトルに複数の語義が混ざります。
+- 固有名詞、機能語、短い形態素はSD評定に向かない場合があります。
+- chiVeの語彙順位は、sd2vecの品質や人間の使用頻度を直接保証しません。
+- 30次元・50次元のsd2vecを300次元chiVeへ無理に射影しても、意味軸が保存されるとは限りません。
+
+## 開発
 
 ```bash
-python select_chive_vocab.py data/chive/chive-1.3-mc90.tar.gz \
-  --scan-limit 50000 --limit 10000 \
-  --output data/chive_vocab_10000.csv
+python -m pip install -e ".[dev]"
+python -m pytest -q
 ```
 
-## 注意
+テストはベクトルの形状、最近傍検索、基本APIを確認します。
 
-これは人間評定の正解データではなく、d1-3Bが生成した印象ベクトルです。
-大規模利用では尺度の妥当性、文化差、多義語、モデルのバイアスを確認してください。
+## ライセンスと第三者データ
 
-軽量LLMに意味微分法(SD法)の固定尺度を評定させ、解釈可能な概念ベクトルを作る最小実装です。
+このリポジトリのコードはMIT Licenseです。
 
-## 実行
+chiVeのベクトル・語彙データはchiVe側のライセンスに従います。chiVe v1.3は公式READMEで
+Apache License 2.0として案内されています。利用時は公式リポジトリと同梱ライセンスを確認してください。
 
-```bash
-python run_sd2vec.py --limit 50 --repeats 2 --output outputs
-```
+d1-3Bのモデル重み・コード・利用条件はLiquid AIおよびHugging Faceのモデルカードに従います。
+モデルを再配布・商用利用する場合は、必ず最新の公式ライセンスを確認してください。
 
-Colab CLIでは、依存関係を入れて同じスクリプトを実行します。
+## リンク
 
-```bash
-colab install -s sd2vec-check torch transformers accelerate sentencepiece numpy
-colab exec -s sd2vec-check -f run_sd2vec.py --timeout 3600
-```
-
-`outputs/raw_scores.jsonl`は逐次追記されるため、切断後も同じコマンドで再開できます。完成物は `vectors.npy`、`metadata.json`、`quality.json`です。ベクトルの各次元は`dimensions.json`の尺度に対応し、正数は左側の形容詞を表します。
-
-生成後にWindowsのExcelでも読める確認用CSVと最近傍レポートを作成できます。
-
-```bash
-python analyze_sd2vec.py --input outputs_v2 --top-k 5
-```
-
-`vectors.csv`と`nearest_neighbors.csv`はUTF-8 BOM付きで保存されるため、日本語の文字化けを避けやすくなっています。
-
-## Phase 2
-
-Phase 2では新しいQwen3-4Bを使い、30尺度・200概念で実行します。
-
-```bash
-python run_sd2vec.py --model Qwen/Qwen3-4B \
-  --concepts concepts_phase2.txt --dimensions dimensions_phase2.json \
-  --limit 200 --repeats 2 --output outputs_phase2
-python analyze_sd2vec.py --input outputs_phase2 --top-k 10
-```
+- GitHub: https://github.com/hirokidesuyo/sd2vec
+- chiVe: https://github.com/WorksApplications/chiVe
+- d1-3B: https://huggingface.co/LiquidAI/d1-3B
