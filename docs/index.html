@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="sd2vecの50尺度で日本語の語感を比較するWebアプリ">
+  <title>sd2vec 軸で見る意味比較</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header class="hero">
+    <p class="eyebrow">sd2vec / semantic differential</p>
+    <h1>軸で見る意味比較</h1>
+    <p>2語が「近い・遠い」だけでなく、どの尺度を共有し、どの尺度で異なるのかを調べます。</p>
+  </header>
+
+  <section class="card">
+    <div class="form">
+      <div><label for="left">左の語</label><input id="left" value="春" list="words" autocomplete="off"></div>
+      <span class="between">と</span>
+      <div><label for="right">右の語</label><input id="right" value="秋" list="words" autocomplete="off"></div>
+      <button id="compare">比較する</button>
+    </div>
+    <div class="presets" id="presets"></div>
+    <datalist id="words"></datalist>
+    <p id="loading" class="notice">データを読み込んでいます…</p>
+    <p id="error" class="error hidden"></p>
+  </section>
+
+  <section id="result" class="hidden">
+    <section class="card">
+      <h2 id="headline"></h2>
+      <div class="metrics">
+        <div class="metric"><small>コサイン類似度</small><b id="cosine"></b></div>
+        <div class="metric"><small>ユークリッド距離</small><b id="euclidean"></b></div>
+        <div class="metric"><small>平均絶対差</small><b id="mad"></b></div>
+      </div>
+      <p class="muted">コサインは全体の方向、ユークリッド距離は位置の離れ具合を表します。下の軸別表示が「なぜ」を説明します。</p>
+    </section>
+    <section class="grid">
+      <div class="panel"><h3>共通している軸</h3><p>評定が近い尺度。意味の共通部分です。</p><div id="shared"></div></div>
+      <div class="panel"><h3>反対方向の軸</h3><p>一方が左極、もう一方が右極にある尺度。</p><div id="opposite"></div></div>
+      <div class="panel"><h3>差が大きい軸</h3><p>語感・ニュアンスの違いを作る尺度。</p><div id="different"></div></div>
+    </section>
+    <section class="card"><h2>全尺度</h2><div id="all"></div></section>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

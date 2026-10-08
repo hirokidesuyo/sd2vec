@@ -156,6 +156,20 @@ python webapp.py --input outputs_d1 --port 8765
 入力された2語の評定プロフィールを比較し、「どの尺度が共通し、どの尺度が異なるか」を
 表示するための探索ツールです。`outputs_chive_10000_phase3`では、収録語だけが比較できます。
 
+### GitHub Pages版
+
+同じ比較アプリをPythonなしでGitHub Pagesから利用できます。
+静的版はブラウザ内のJavaScriptだけで計算するため、Tailscaleやローカルサーバーの起動は不要です。
+
+```text
+https://hirokidesuyo.github.io/sd2vec/
+```
+
+静的版の公開データは、10,000語×50尺度の`Float32`ベクトル（約2MB）と語彙・尺度メタデータだけです。
+`raw_scores.jsonl`やCSV全体はブラウザへ送信しません。GitHub Pagesのデプロイは
+`.github/workflows/pages.yml`で行います。リポジトリSettingsのPagesで、初回のみ
+Sourceを**GitHub Actions**に設定してください。
+
 ## 収録データ
 
 ### d1-3B・200概念・30尺度
