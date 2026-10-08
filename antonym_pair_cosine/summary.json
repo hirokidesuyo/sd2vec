@@ -6,72 +6,397 @@
   "seed": 42,
   "antonym_pairs_requested": [
     {
-      "left": "勝利",
-      "right": "敗北"
+      "category": "程度",
+      "left": "高い",
+      "right": "低い"
     },
     {
-      "left": "光",
-      "right": "闇"
+      "category": "程度",
+      "left": "重い",
+      "right": "軽い"
     },
     {
-      "left": "春",
-      "right": "秋"
+      "category": "時間",
+      "left": "新しい",
+      "right": "古い"
     },
     {
-      "left": "上",
-      "right": "下"
+      "category": "程度",
+      "left": "大きい",
+      "right": "小さい"
     },
     {
-      "left": "生",
-      "right": "死"
+      "category": "程度",
+      "left": "強い",
+      "right": "弱い"
     },
     {
-      "left": "愛",
-      "right": "憎しみ"
+      "category": "活動",
+      "left": "早い",
+      "right": "遅い"
     },
     {
+      "category": "温度",
+      "left": "熱い",
+      "right": "冷たい"
+    },
+    {
+      "category": "知覚",
+      "left": "明るい",
+      "right": "暗い"
+    },
+    {
+      "category": "活動",
+      "left": "静か",
+      "right": "うるさい"
+    },
+    {
+      "category": "程度",
+      "left": "硬い",
+      "right": "柔らかい"
+    },
+    {
+      "category": "程度",
+      "left": "長い",
+      "right": "短い"
+    },
+    {
+      "category": "程度",
+      "left": "広い",
+      "right": "狭い"
+    },
+    {
+      "category": "程度",
+      "left": "深い",
+      "right": "浅い"
+    },
+    {
+      "category": "程度",
+      "left": "厚い",
+      "right": "薄い"
+    },
+    {
+      "category": "数量",
+      "left": "多い",
+      "right": "少ない"
+    },
+    {
+      "category": "価格",
+      "left": "高価",
+      "right": "安価"
+    },
+    {
+      "category": "難易度",
+      "left": "簡単",
+      "right": "難しい"
+    },
+    {
+      "category": "距離",
+      "left": "近い",
+      "right": "遠い"
+    },
+    {
+      "category": "評価",
+      "left": "良い",
+      "right": "悪い"
+    },
+    {
+      "category": "評価",
       "left": "美しい",
       "right": "醜い"
     },
     {
-      "left": "善",
-      "right": "悪"
-    }
-  ],
-  "antonym_pairs_available": [
-    {
-      "left": "光",
-      "right": "闇"
+      "category": "評価",
+      "left": "正しい",
+      "right": "間違った"
     },
     {
-      "left": "春",
-      "right": "秋"
+      "category": "評価",
+      "left": "安全",
+      "right": "危険"
     },
     {
+      "category": "評価",
+      "left": "好き",
+      "right": "嫌い"
+    },
+    {
+      "category": "評価",
+      "left": "成功",
+      "right": "失敗"
+    },
+    {
+      "category": "評価",
+      "left": "勝利",
+      "right": "敗北"
+    },
+    {
+      "category": "状態",
+      "left": "生",
+      "right": "死"
+    },
+    {
+      "category": "状態",
+      "left": "健康",
+      "right": "病気"
+    },
+    {
+      "category": "状態",
+      "left": "自然",
+      "right": "人工的"
+    },
+    {
+      "category": "状態",
+      "left": "清潔",
+      "right": "汚れた"
+    },
+    {
+      "category": "状態",
+      "left": "安定",
+      "right": "不安定"
+    },
+    {
+      "category": "方向",
       "left": "上",
       "right": "下"
     },
     {
+      "category": "方向",
+      "left": "前",
+      "right": "後"
+    },
+    {
+      "category": "方向",
+      "left": "内",
+      "right": "外"
+    },
+    {
+      "category": "方向",
+      "left": "左",
+      "right": "右"
+    },
+    {
+      "category": "方向",
+      "left": "表",
+      "right": "裏"
+    },
+    {
+      "category": "方向",
+      "left": "始まり",
+      "right": "終わり"
+    },
+    {
+      "category": "方向",
+      "left": "出口",
+      "right": "入口"
+    },
+    {
+      "category": "方向",
+      "left": "進む",
+      "right": "戻る"
+    },
+    {
+      "category": "活動",
+      "left": "忙しい",
+      "right": "暇"
+    },
+    {
+      "category": "活動",
+      "left": "興奮する",
+      "right": "退屈な"
+    },
+    {
+      "category": "時間",
+      "left": "現代的な",
+      "right": "古風な"
+    },
+    {
+      "category": "時間",
+      "left": "未来的な",
+      "right": "過去の"
+    },
+    {
+      "category": "時間",
+      "left": "一時的な",
+      "right": "永続的な"
+    }
+  ],
+  "antonym_pairs_available": [
+    {
+      "category": "程度",
+      "left": "高い",
+      "right": "低い"
+    },
+    {
+      "category": "程度",
+      "left": "重い",
+      "right": "軽い"
+    },
+    {
+      "category": "時間",
+      "left": "新しい",
+      "right": "古い"
+    },
+    {
+      "category": "程度",
+      "left": "大きい",
+      "right": "小さい"
+    },
+    {
+      "category": "程度",
+      "left": "強い",
+      "right": "弱い"
+    },
+    {
+      "category": "活動",
+      "left": "早い",
+      "right": "遅い"
+    },
+    {
+      "category": "温度",
+      "left": "熱い",
+      "right": "冷たい"
+    },
+    {
+      "category": "知覚",
+      "left": "明るい",
+      "right": "暗い"
+    },
+    {
+      "category": "程度",
+      "left": "長い",
+      "right": "短い"
+    },
+    {
+      "category": "程度",
+      "left": "広い",
+      "right": "狭い"
+    },
+    {
+      "category": "程度",
+      "left": "深い",
+      "right": "浅い"
+    },
+    {
+      "category": "程度",
+      "left": "厚い",
+      "right": "薄い"
+    },
+    {
+      "category": "数量",
+      "left": "多い",
+      "right": "少ない"
+    },
+    {
+      "category": "価格",
+      "left": "高価",
+      "right": "安価"
+    },
+    {
+      "category": "難易度",
+      "left": "簡単",
+      "right": "難しい"
+    },
+    {
+      "category": "距離",
+      "left": "近い",
+      "right": "遠い"
+    },
+    {
+      "category": "評価",
+      "left": "良い",
+      "right": "悪い"
+    },
+    {
+      "category": "評価",
+      "left": "安全",
+      "right": "危険"
+    },
+    {
+      "category": "評価",
+      "left": "好き",
+      "right": "嫌い"
+    },
+    {
+      "category": "評価",
+      "left": "成功",
+      "right": "失敗"
+    },
+    {
+      "category": "状態",
       "left": "生",
       "right": "死"
+    },
+    {
+      "category": "状態",
+      "left": "健康",
+      "right": "病気"
+    },
+    {
+      "category": "状態",
+      "left": "安定",
+      "right": "不安定"
+    },
+    {
+      "category": "方向",
+      "left": "上",
+      "right": "下"
+    },
+    {
+      "category": "方向",
+      "left": "前",
+      "right": "後"
+    },
+    {
+      "category": "方向",
+      "left": "内",
+      "right": "外"
+    },
+    {
+      "category": "方向",
+      "left": "左",
+      "right": "右"
+    },
+    {
+      "category": "方向",
+      "left": "表",
+      "right": "裏"
+    },
+    {
+      "category": "方向",
+      "left": "始まり",
+      "right": "終わり"
+    },
+    {
+      "category": "方向",
+      "left": "進む",
+      "right": "戻る"
+    },
+    {
+      "category": "活動",
+      "left": "忙しい",
+      "right": "暇"
     }
   ],
   "missing_pairs": [
     {
-      "left": "勝利",
-      "right": "敗北",
+      "category": "活動",
+      "left": "静か",
+      "right": "うるさい",
       "missing": [
-        "敗北"
+        "うるさい"
       ]
     },
     {
-      "left": "愛",
-      "right": "憎しみ",
+      "category": "程度",
+      "left": "硬い",
+      "right": "柔らかい",
       "missing": [
-        "憎しみ"
+        "硬い"
       ]
     },
     {
+      "category": "評価",
       "left": "美しい",
       "right": "醜い",
       "missing": [
@@ -79,10 +404,79 @@
       ]
     },
     {
-      "left": "善",
-      "right": "悪",
+      "category": "評価",
+      "left": "正しい",
+      "right": "間違った",
       "missing": [
-        "善"
+        "間違った"
+      ]
+    },
+    {
+      "category": "評価",
+      "left": "勝利",
+      "right": "敗北",
+      "missing": [
+        "敗北"
+      ]
+    },
+    {
+      "category": "状態",
+      "left": "自然",
+      "right": "人工的",
+      "missing": [
+        "人工的"
+      ]
+    },
+    {
+      "category": "状態",
+      "left": "清潔",
+      "right": "汚れた",
+      "missing": [
+        "汚れた"
+      ]
+    },
+    {
+      "category": "方向",
+      "left": "出口",
+      "right": "入口",
+      "missing": [
+        "入口"
+      ]
+    },
+    {
+      "category": "活動",
+      "left": "興奮する",
+      "right": "退屈な",
+      "missing": [
+        "興奮する",
+        "退屈な"
+      ]
+    },
+    {
+      "category": "時間",
+      "left": "現代的な",
+      "right": "古風な",
+      "missing": [
+        "現代的な",
+        "古風な"
+      ]
+    },
+    {
+      "category": "時間",
+      "left": "未来的な",
+      "right": "過去の",
+      "missing": [
+        "未来的な",
+        "過去の"
+      ]
+    },
+    {
+      "category": "時間",
+      "left": "一時的な",
+      "right": "永続的な",
+      "missing": [
+        "一時的な",
+        "永続的な"
       ]
     }
   ],
@@ -91,28 +485,283 @@
       "pairs": [
         {
           "method": "raw",
-          "left": "光",
-          "right": "闇",
-          "cosine": -0.41471697441592315,
+          "category": "程度",
+          "left": "高い",
+          "right": "低い",
+          "cosine": -0.21637022795773245,
           "random_mean": 0.39862505392288883,
           "random_std": 0.28755946248009595,
-          "z_vs_random": -2.828430757673673,
-          "random_percentile": 0.00745,
-          "random_two_sided_p": 0.00745
+          "z_vs_random": -2.138671690983528,
+          "random_percentile": 0.03627,
+          "random_two_sided_p": 0.03627
         },
         {
           "method": "raw",
-          "left": "春",
-          "right": "秋",
-          "cosine": 0.7404186572907322,
+          "category": "程度",
+          "left": "重い",
+          "right": "軽い",
+          "cosine": -0.20896795566176332,
           "random_mean": 0.39862505392288883,
           "random_std": 0.28755946248009595,
-          "z_vs_random": 1.188601482350807,
-          "random_percentile": 0.91256,
-          "random_two_sided_p": 0.2224
+          "z_vs_random": -2.1129299809659643,
+          "random_percentile": 0.0379,
+          "random_two_sided_p": 0.0379
         },
         {
           "method": "raw",
+          "category": "時間",
+          "left": "新しい",
+          "right": "古い",
+          "cosine": -0.42783684345272116,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -2.874055648343741,
+          "random_percentile": 0.00639,
+          "random_two_sided_p": 0.00639
+        },
+        {
+          "method": "raw",
+          "category": "程度",
+          "left": "大きい",
+          "right": "小さい",
+          "cosine": 0.03546642605352626,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -1.2628992443415052,
+          "random_percentile": 0.12354,
+          "random_two_sided_p": 0.19013
+        },
+        {
+          "method": "raw",
+          "category": "程度",
+          "left": "強い",
+          "right": "弱い",
+          "cosine": -0.6670917534383463,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -3.706074556440656,
+          "random_percentile": 0.00014,
+          "random_two_sided_p": 0.00014
+        },
+        {
+          "method": "raw",
+          "category": "活動",
+          "left": "早い",
+          "right": "遅い",
+          "cosine": 0.3333558436058353,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -0.22697639560920818,
+          "random_percentile": 0.355,
+          "random_two_sided_p": 0.83423
+        },
+        {
+          "method": "raw",
+          "category": "温度",
+          "left": "熱い",
+          "right": "冷たい",
+          "cosine": 0.18762487477041898,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -0.7337619055644002,
+          "random_percentile": 0.21843,
+          "random_two_sided_p": 0.47875
+        },
+        {
+          "method": "raw",
+          "category": "知覚",
+          "left": "明るい",
+          "right": "暗い",
+          "cosine": -0.5183967796656913,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -3.1889815959440173,
+          "random_percentile": 0.00219,
+          "random_two_sided_p": 0.00219
+        },
+        {
+          "method": "raw",
+          "category": "程度",
+          "left": "長い",
+          "right": "短い",
+          "cosine": 0.40954788021285865,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": 0.03798458306940906,
+          "random_percentile": 0.44611,
+          "random_two_sided_p": 0.9724
+        },
+        {
+          "method": "raw",
+          "category": "程度",
+          "left": "広い",
+          "right": "狭い",
+          "cosine": -0.2126593975945196,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -2.125767123937783,
+          "random_percentile": 0.03705,
+          "random_two_sided_p": 0.03705
+        },
+        {
+          "method": "raw",
+          "category": "程度",
+          "left": "深い",
+          "right": "浅い",
+          "cosine": -0.157237460746129,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -1.9330350316936382,
+          "random_percentile": 0.05148,
+          "random_two_sided_p": 0.05175
+        },
+        {
+          "method": "raw",
+          "category": "程度",
+          "left": "厚い",
+          "right": "薄い",
+          "cosine": -0.09880914275326919,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -1.7298481238835568,
+          "random_percentile": 0.0692,
+          "random_two_sided_p": 0.07268
+        },
+        {
+          "method": "raw",
+          "category": "数量",
+          "left": "多い",
+          "right": "少ない",
+          "cosine": -0.2069029646239402,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -2.105748888679822,
+          "random_percentile": 0.03843,
+          "random_two_sided_p": 0.03843
+        },
+        {
+          "method": "raw",
+          "category": "価格",
+          "left": "高価",
+          "right": "安価",
+          "cosine": -0.07618057942915221,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -1.6511563530443925,
+          "random_percentile": 0.07715,
+          "random_two_sided_p": 0.08486
+        },
+        {
+          "method": "raw",
+          "category": "難易度",
+          "left": "簡単",
+          "right": "難しい",
+          "cosine": -0.562797383420306,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -3.3433865436083217,
+          "random_percentile": 0.00108,
+          "random_two_sided_p": 0.00108
+        },
+        {
+          "method": "raw",
+          "category": "距離",
+          "left": "近い",
+          "right": "遠い",
+          "cosine": 0.13899253942252435,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -0.90288287598373,
+          "random_percentile": 0.18384,
+          "random_two_sided_p": 0.37258
+        },
+        {
+          "method": "raw",
+          "category": "評価",
+          "left": "良い",
+          "right": "悪い",
+          "cosine": -0.7002732177481946,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -3.821464479706162,
+          "random_percentile": 6e-05,
+          "random_two_sided_p": 6e-05
+        },
+        {
+          "method": "raw",
+          "category": "評価",
+          "left": "安全",
+          "right": "危険",
+          "cosine": -0.3119277251442668,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -2.4709768648852517,
+          "random_percentile": 0.01871,
+          "random_two_sided_p": 0.01871
+        },
+        {
+          "method": "raw",
+          "category": "評価",
+          "left": "好き",
+          "right": "嫌い",
+          "cosine": -0.015543594438610541,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -1.4402887138174663,
+          "random_percentile": 0.10077,
+          "random_two_sided_p": 0.13106
+        },
+        {
+          "method": "raw",
+          "category": "評価",
+          "left": "成功",
+          "right": "失敗",
+          "cosine": -0.5569475086852157,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -3.3230433607249026,
+          "random_percentile": 0.00118,
+          "random_two_sided_p": 0.00118
+        },
+        {
+          "method": "raw",
+          "category": "状態",
+          "left": "生",
+          "right": "死",
+          "cosine": 0.030097254809174287,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -1.2815707608273297,
+          "random_percentile": 0.1207,
+          "random_two_sided_p": 0.18273
+        },
+        {
+          "method": "raw",
+          "category": "状態",
+          "left": "健康",
+          "right": "病気",
+          "cosine": -0.02530108129588623,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -1.4742207805041991,
+          "random_percentile": 0.09671,
+          "random_two_sided_p": 0.12226
+        },
+        {
+          "method": "raw",
+          "category": "状態",
+          "left": "安定",
+          "right": "不安定",
+          "cosine": -0.4363620764590757,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -2.903702500973203,
+          "random_percentile": 0.00582,
+          "random_two_sided_p": 0.00582
+        },
+        {
+          "method": "raw",
+          "category": "方向",
           "left": "上",
           "right": "下",
           "cosine": 0.48361506810343335,
@@ -124,51 +773,517 @@
         },
         {
           "method": "raw",
-          "left": "生",
-          "right": "死",
-          "cosine": 0.030097254809174287,
+          "category": "方向",
+          "left": "前",
+          "right": "後",
+          "cosine": 0.8581827779970954,
           "random_mean": 0.39862505392288883,
           "random_std": 0.28755946248009595,
-          "z_vs_random": -1.2815707608273297,
-          "random_percentile": 0.1207,
-          "random_two_sided_p": 0.18273
+          "z_vs_random": 1.5981311138596799,
+          "random_percentile": 0.98863,
+          "random_two_sided_p": 0.09399
+        },
+        {
+          "method": "raw",
+          "category": "方向",
+          "left": "内",
+          "right": "外",
+          "cosine": 0.4725513996750621,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": 0.2570819444249387,
+          "random_percentile": 0.53228,
+          "random_two_sided_p": 0.81278
+        },
+        {
+          "method": "raw",
+          "category": "方向",
+          "left": "左",
+          "right": "右",
+          "cosine": 0.5548472084955367,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": 0.5432690450360719,
+          "random_percentile": 0.65682,
+          "random_two_sided_p": 0.60642
+        },
+        {
+          "method": "raw",
+          "category": "方向",
+          "left": "表",
+          "right": "裏",
+          "cosine": 0.21089602752687875,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -0.6528355032274556,
+          "random_percentile": 0.23664,
+          "random_two_sided_p": 0.53142
+        },
+        {
+          "method": "raw",
+          "category": "方向",
+          "left": "始まり",
+          "right": "終わり",
+          "cosine": 0.729350805742917,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": 1.1501125679107849,
+          "random_percentile": 0.90128,
+          "random_two_sided_p": 0.23947
+        },
+        {
+          "method": "raw",
+          "category": "方向",
+          "left": "進む",
+          "right": "戻る",
+          "cosine": 0.6625581029740732,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": 0.917838163887419,
+          "random_percentile": 0.81731,
+          "random_two_sided_p": 0.36375
+        },
+        {
+          "method": "raw",
+          "category": "活動",
+          "left": "忙しい",
+          "right": "暇",
+          "cosine": 0.08106504061954777,
+          "random_mean": 0.39862505392288883,
+          "random_std": 0.28755946248009595,
+          "z_vs_random": -1.1043281642151548,
+          "random_percentile": 0.14801,
+          "random_two_sided_p": 0.26142
         }
       ],
       "aggregate": {
-        "antonym_mean": 0.20985350144685416,
+        "antonym_mean": -0.006821111048578654,
         "random_mean": 0.39862505392288883,
         "random_std": 0.28755946248009595,
-        "mean_difference": -0.18877155247603467,
-        "z_vs_random_mean": -1.3129218621286085,
-        "antonym_above_random_fraction": 0.5
+        "mean_difference": -0.40544616497146746,
+        "random_mean_95ci": [
+          0.2949002137320454,
+          0.4975300884233256
+        ],
+        "one_sided_p_random_mean_at_most_antonym": 0.0,
+        "antonym_above_random_fraction": 0.22580645161290322
+      },
+      "by_category": {
+        "価格": {
+          "pair_count": 1,
+          "antonym_mean": -0.07618057942915221,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.47480563335204107,
+          "random_mean_95ci": [
+            -0.2781631391670538,
+            0.8239024583549177
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0765
+        },
+        "数量": {
+          "pair_count": 1,
+          "antonym_mean": -0.2069029646239402,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.605528018546829,
+          "random_mean_95ci": [
+            -0.2784782907645342,
+            0.8280136209987284
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.039
+        },
+        "方向": {
+          "pair_count": 7,
+          "antonym_mean": 0.567428770073571,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": 0.16880371615068213,
+          "random_mean_95ci": [
+            0.17390543273917417,
+            0.5970064088485457
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.9489
+        },
+        "時間": {
+          "pair_count": 1,
+          "antonym_mean": -0.42783684345272116,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.8264618973756099,
+          "random_mean_95ci": [
+            -0.2622666361850253,
+            0.8200193045410917
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0063
+        },
+        "活動": {
+          "pair_count": 2,
+          "antonym_mean": 0.20721044211269155,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.19141461181019728,
+          "random_mean_95ci": [
+            -0.04040033904550317,
+            0.7267970248452574
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.1755
+        },
+        "温度": {
+          "pair_count": 1,
+          "antonym_mean": 0.18762487477041898,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.21100017915246985,
+          "random_mean_95ci": [
+            -0.26707645955950676,
+            0.8191863306819617
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.2196
+        },
+        "状態": {
+          "pair_count": 3,
+          "antonym_mean": -0.14385530098192922,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.542480354904818,
+          "random_mean_95ci": [
+            0.05102359617776638,
+            0.6789423667966438
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0014
+        },
+        "知覚": {
+          "pair_count": 1,
+          "antonym_mean": -0.5183967796656913,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.9170218335885801,
+          "random_mean_95ci": [
+            -0.2630275542230822,
+            0.823172457688495
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0022
+        },
+        "程度": {
+          "pair_count": 8,
+          "antonym_mean": -0.13951520398567188,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.5381402579085607,
+          "random_mean_95ci": [
+            0.1851025221749022,
+            0.5862041659150219
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0
+        },
+        "評価": {
+          "pair_count": 4,
+          "antonym_mean": -0.3961730115040719,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.7947980654269607,
+          "random_mean_95ci": [
+            0.09074962564699554,
+            0.6479307565631122
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0
+        },
+        "距離": {
+          "pair_count": 1,
+          "antonym_mean": 0.13899253942252435,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.2596325145003645,
+          "random_mean_95ci": [
+            -0.2771745922783448,
+            0.8206556487325857
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.1786
+        },
+        "難易度": {
+          "pair_count": 1,
+          "antonym_mean": -0.562797383420306,
+          "random_mean": 0.39862505392288883,
+          "mean_difference": -0.9614224373431949,
+          "random_mean_95ci": [
+            -0.28855494327501796,
+            0.8247335800674961
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0011
+        }
       }
     },
     "centered": {
       "pairs": [
         {
           "method": "centered",
-          "left": "光",
-          "right": "闇",
-          "cosine": -0.5366147196251748,
+          "category": "程度",
+          "left": "高い",
+          "right": "低い",
+          "cosine": -0.5955107729905199,
           "random_mean": 0.0036435254158730277,
           "random_std": 0.31054999587972776,
-          "z_vs_random": -1.7396820228916805,
-          "random_percentile": 0.03046,
-          "random_two_sided_p": 0.07747
+          "z_vs_random": -1.9293328171172737,
+          "random_percentile": 0.01469,
+          "random_two_sided_p": 0.04403
         },
         {
           "method": "centered",
-          "left": "春",
-          "right": "秋",
-          "cosine": 0.5944790880192659,
+          "category": "程度",
+          "left": "重い",
+          "right": "軽い",
+          "cosine": -0.5401049590837372,
           "random_mean": 0.0036435254158730277,
           "random_std": 0.31054999587972776,
-          "z_vs_random": 1.9025457106501342,
-          "random_percentile": 0.96861,
-          "random_two_sided_p": 0.04772
+          "z_vs_random": -1.750920920025378,
+          "random_percentile": 0.02922,
+          "random_two_sided_p": 0.07525
         },
         {
           "method": "centered",
+          "category": "時間",
+          "left": "新しい",
+          "right": "古い",
+          "cosine": -0.525150935956316,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -1.7027675684690224,
+          "random_percentile": 0.03436,
+          "random_two_sided_p": 0.08535
+        },
+        {
+          "method": "centered",
+          "category": "程度",
+          "left": "大きい",
+          "right": "小さい",
+          "cosine": -0.45231402269660825,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -1.4682259029527345,
+          "random_percentile": 0.0665,
+          "random_two_sided_p": 0.14922
+        },
+        {
+          "method": "centered",
+          "category": "程度",
+          "left": "強い",
+          "right": "弱い",
+          "cosine": -0.6617087060919389,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -2.142496346274288,
+          "random_percentile": 0.00505,
+          "random_two_sided_p": 0.02079
+        },
+        {
+          "method": "centered",
+          "category": "活動",
+          "left": "早い",
+          "right": "遅い",
+          "cosine": 0.17474848902307014,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": 0.5509739683701814,
+          "random_percentile": 0.70183,
+          "random_two_sided_p": 0.61273
+        },
+        {
+          "method": "centered",
+          "category": "温度",
+          "left": "熱い",
+          "right": "冷たい",
+          "cosine": -0.025636579081469997,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.09428467198783301,
+          "random_percentile": 0.4813,
+          "random_two_sided_p": 0.9321
+        },
+        {
+          "method": "centered",
+          "category": "知覚",
+          "left": "明るい",
+          "right": "暗い",
+          "cosine": -0.6702892424640682,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -2.1701264750328546,
+          "random_percentile": 0.00442,
+          "random_two_sided_p": 0.0188
+        },
+        {
+          "method": "centered",
+          "category": "程度",
+          "left": "長い",
+          "right": "短い",
+          "cosine": -0.195480342364665,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.6411974574865437,
+          "random_percentile": 0.28423,
+          "random_two_sided_p": 0.55499
+        },
+        {
+          "method": "centered",
+          "category": "程度",
+          "left": "広い",
+          "right": "狭い",
+          "cosine": -0.5098273213400513,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -1.6534240977893468,
+          "random_percentile": 0.04005,
+          "random_two_sided_p": 0.0972
+        },
+        {
+          "method": "centered",
+          "category": "程度",
+          "left": "深い",
+          "right": "浅い",
+          "cosine": -0.37270659815185714,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -1.2118825585606705,
+          "random_percentile": 0.1173,
+          "random_two_sided_p": 0.24357
+        },
+        {
+          "method": "centered",
+          "category": "程度",
+          "left": "厚い",
+          "right": "薄い",
+          "cosine": -0.48563166266998153,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -1.575511816381878,
+          "random_percentile": 0.0501,
+          "random_two_sided_p": 0.11728
+        },
+        {
+          "method": "centered",
+          "category": "数量",
+          "left": "多い",
+          "right": "少ない",
+          "cosine": -0.5290258764459643,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -1.7152452388636763,
+          "random_percentile": 0.03306,
+          "random_two_sided_p": 0.08285
+        },
+        {
+          "method": "centered",
+          "category": "価格",
+          "left": "高価",
+          "right": "安価",
+          "cosine": -0.15903482197648403,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.523839476898143,
+          "random_percentile": 0.32458,
+          "random_two_sided_p": 0.63108
+        },
+        {
+          "method": "centered",
+          "category": "難易度",
+          "left": "簡単",
+          "right": "難しい",
+          "cosine": -0.5918640378607685,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -1.9175899893016721,
+          "random_percentile": 0.01537,
+          "random_two_sided_p": 0.04563
+        },
+        {
+          "method": "centered",
+          "category": "距離",
+          "left": "近い",
+          "right": "遠い",
+          "cosine": -0.32936436237605937,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -1.072316510095535,
+          "random_percentile": 0.15167,
+          "random_two_sided_p": 0.30801
+        },
+        {
+          "method": "centered",
+          "category": "評価",
+          "left": "良い",
+          "right": "悪い",
+          "cosine": -0.8780850009813349,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -2.8392482308667963,
+          "random_percentile": 0.0,
+          "random_two_sided_p": 0.00058
+        },
+        {
+          "method": "centered",
+          "category": "評価",
+          "left": "安全",
+          "right": "危険",
+          "cosine": -0.48818459269463305,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -1.5837324895698441,
+          "random_percentile": 0.04907,
+          "random_two_sided_p": 0.1151
+        },
+        {
+          "method": "centered",
+          "category": "評価",
+          "left": "好き",
+          "right": "嫌い",
+          "cosine": -0.24861941555727582,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.8123102377075774,
+          "random_percentile": 0.22769,
+          "random_two_sided_p": 0.44899
+        },
+        {
+          "method": "centered",
+          "category": "評価",
+          "left": "成功",
+          "right": "失敗",
+          "cosine": -0.7620525541478614,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -2.465612911681632,
+          "random_percentile": 0.00053,
+          "random_two_sided_p": 0.00513
+        },
+        {
+          "method": "centered",
+          "category": "状態",
+          "left": "生",
+          "right": "死",
+          "cosine": -0.24277245836050476,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.7934824892794773,
+          "random_percentile": 0.234,
+          "random_two_sided_p": 0.46051
+        },
+        {
+          "method": "centered",
+          "category": "状態",
+          "left": "健康",
+          "right": "病気",
+          "cosine": -0.300952755143161,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.9808284804389451,
+          "random_percentile": 0.17783,
+          "random_two_sided_p": 0.35587
+        },
+        {
+          "method": "centered",
+          "category": "状態",
+          "left": "安定",
+          "right": "不安定",
+          "cosine": -0.6641963259792877,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -2.1505067147185115,
+          "random_percentile": 0.00488,
+          "random_two_sided_p": 0.02027
+        },
+        {
+          "method": "centered",
+          "category": "方向",
           "left": "上",
           "right": "下",
           "cosine": 0.012293037207068737,
@@ -180,51 +1295,517 @@
         },
         {
           "method": "centered",
-          "left": "生",
-          "right": "死",
-          "cosine": -0.24277245836050476,
+          "category": "方向",
+          "left": "前",
+          "right": "後",
+          "cosine": 0.7433470010860984,
           "random_mean": 0.0036435254158730277,
           "random_std": 0.31054999587972776,
-          "z_vs_random": -0.7934824892794773,
-          "random_percentile": 0.234,
-          "random_two_sided_p": 0.46051
+          "z_vs_random": 2.3819142987743063,
+          "random_percentile": 0.99343,
+          "random_two_sided_p": 0.00765
+        },
+        {
+          "method": "centered",
+          "category": "方向",
+          "left": "内",
+          "right": "外",
+          "cosine": -0.2675674775703417,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.8733247676205138,
+          "random_percentile": 0.20957,
+          "random_two_sided_p": 0.41463
+        },
+        {
+          "method": "centered",
+          "category": "方向",
+          "left": "左",
+          "right": "右",
+          "cosine": 0.04511265082514709,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": 0.13353445808878564,
+          "random_percentile": 0.56316,
+          "random_two_sided_p": 0.90364
+        },
+        {
+          "method": "centered",
+          "category": "方向",
+          "left": "表",
+          "right": "裏",
+          "cosine": -0.1638931297184837,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.5394836817168777,
+          "random_percentile": 0.31871,
+          "random_two_sided_p": 0.62034
+        },
+        {
+          "method": "centered",
+          "category": "方向",
+          "left": "始まり",
+          "right": "終わり",
+          "cosine": 0.5067356073077716,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": 1.6200035052866013,
+          "random_percentile": 0.93863,
+          "random_two_sided_p": 0.10548
+        },
+        {
+          "method": "centered",
+          "category": "方向",
+          "left": "進む",
+          "right": "戻る",
+          "cosine": -0.06021842596234516,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.20564144976820786,
+          "random_percentile": 0.43949,
+          "random_two_sided_p": 0.8513
+        },
+        {
+          "method": "centered",
+          "category": "活動",
+          "left": "忙しい",
+          "right": "暇",
+          "cosine": -0.20081190847168603,
+          "random_mean": 0.0036435254158730277,
+          "random_std": 0.31054999587972776,
+          "z_vs_random": -0.658365598455014,
+          "random_percentile": 0.2784,
+          "random_two_sided_p": 0.5441
         }
       ],
       "aggregate": {
-        "antonym_mean": -0.04315376318983625,
+        "antonym_mean": -0.3044763709899435,
         "random_mean": 0.0036435254158730277,
         "random_std": 0.31054999587972776,
-        "mean_difference": -0.046797288605709274,
-        "z_vs_random_mean": -0.3013832827345024,
-        "antonym_above_random_fraction": 0.5
+        "mean_difference": -0.30811989640581655,
+        "random_mean_95ci": [
+          -0.10406134724243331,
+          0.11259324436795375
+        ],
+        "one_sided_p_random_mean_at_most_antonym": 0.0,
+        "antonym_above_random_fraction": 0.16129032258064516
+      },
+      "by_category": {
+        "価格": {
+          "pair_count": 1,
+          "antonym_mean": -0.15903482197648403,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.16267834739235706,
+          "random_mean_95ci": [
+            -0.5520016705054079,
+            0.6256707626354971
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.3237
+        },
+        "数量": {
+          "pair_count": 1,
+          "antonym_mean": -0.5290258764459643,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.5326694018618373,
+          "random_mean_95ci": [
+            -0.5531230150914299,
+            0.6135341602528149
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0334
+        },
+        "方向": {
+          "pair_count": 7,
+          "antonym_mean": 0.11654418045355931,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": 0.11290065503768629,
+          "random_mean_95ci": [
+            -0.22572709512327704,
+            0.23828129738011772
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.8291
+        },
+        "時間": {
+          "pair_count": 1,
+          "antonym_mean": -0.525150935956316,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.528794461372189,
+          "random_mean_95ci": [
+            -0.555491135128977,
+            0.61777248763523
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0334
+        },
+        "活動": {
+          "pair_count": 2,
+          "antonym_mean": -0.01303170972430795,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.016675235140180978,
+          "random_mean_95ci": [
+            -0.41278778489970935,
+            0.44056230564945104
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.4854
+        },
+        "温度": {
+          "pair_count": 1,
+          "antonym_mean": -0.025636579081469997,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.029280104497343026,
+          "random_mean_95ci": [
+            -0.5632628674770608,
+            0.6121195106093388
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.4825
+        },
+        "状態": {
+          "pair_count": 3,
+          "antonym_mean": -0.4026405131609845,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.4062840385768575,
+          "random_mean_95ci": [
+            -0.3461796264378127,
+            0.3693108144048355
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0074
+        },
+        "知覚": {
+          "pair_count": 1,
+          "antonym_mean": -0.6702892424640682,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.6739327678799412,
+          "random_mean_95ci": [
+            -0.5604044738589831,
+            0.6295611251982263
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0043
+        },
+        "程度": {
+          "pair_count": 8,
+          "antonym_mean": -0.4766605481736699,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.4803040735895429,
+          "random_mean_95ci": [
+            -0.20704796232222195,
+            0.22235733350733636
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0
+        },
+        "評価": {
+          "pair_count": 4,
+          "antonym_mean": -0.5942353908452763,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.5978789162611493,
+          "random_mean_95ci": [
+            -0.29385525365426796,
+            0.3032387805501093
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0
+        },
+        "距離": {
+          "pair_count": 1,
+          "antonym_mean": -0.32936436237605937,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.3330078877919324,
+          "random_mean_95ci": [
+            -0.553411761934351,
+            0.6176371525684206
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.1483
+        },
+        "難易度": {
+          "pair_count": 1,
+          "antonym_mean": -0.5918640378607685,
+          "random_mean": 0.0036435254158730277,
+          "mean_difference": -0.5955075632766414,
+          "random_mean_95ci": [
+            -0.5477020319223143,
+            0.6217827970073506
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0129
+        }
       }
     },
     "zscore": {
       "pairs": [
         {
           "method": "zscore",
-          "left": "光",
-          "right": "闇",
-          "cosine": -0.5589733636124724,
+          "category": "程度",
+          "left": "高い",
+          "right": "低い",
+          "cosine": -0.7192745520502617,
           "random_mean": 0.004809191143812219,
           "random_std": 0.3004125731570582,
-          "z_vs_random": -1.8766942702545752,
-          "random_percentile": 0.02038,
-          "random_two_sided_p": 0.05389
+          "z_vs_random": -2.410297730166962,
+          "random_percentile": 0.00148,
+          "random_two_sided_p": 0.00791
         },
         {
           "method": "zscore",
-          "left": "春",
-          "right": "秋",
-          "cosine": 0.43608158288158266,
+          "category": "程度",
+          "left": "重い",
+          "right": "軽い",
+          "cosine": -0.5532029155895098,
           "random_mean": 0.004809191143812219,
           "random_std": 0.3004125731570582,
-          "z_vs_random": 1.435600338579363,
-          "random_percentile": 0.91463,
-          "random_two_sided_p": 0.1586
+          "z_vs_random": -1.8574858597598995,
+          "random_percentile": 0.02166,
+          "random_two_sided_p": 0.05674
         },
         {
           "method": "zscore",
+          "category": "時間",
+          "left": "新しい",
+          "right": "古い",
+          "cosine": -0.5803691937808715,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.94791575723679,
+          "random_percentile": 0.01592,
+          "random_two_sided_p": 0.04384
+        },
+        {
+          "method": "zscore",
+          "category": "程度",
+          "left": "大きい",
+          "right": "小さい",
+          "cosine": -0.5102045114656131,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.7143546862806296,
+          "random_percentile": 0.03481,
+          "random_two_sided_p": 0.08295
+        },
+        {
+          "method": "zscore",
+          "category": "程度",
+          "left": "強い",
+          "right": "弱い",
+          "cosine": -0.6872485963957573,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -2.303691154689973,
+          "random_percentile": 0.00278,
+          "random_two_sided_p": 0.01223
+        },
+        {
+          "method": "zscore",
+          "category": "活動",
+          "left": "早い",
+          "right": "遅い",
+          "cosine": 0.17625436526910987,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": 0.5706990633699764,
+          "random_percentile": 0.71034,
+          "random_two_sided_p": 0.59411
+        },
+        {
+          "method": "zscore",
+          "category": "温度",
+          "left": "熱い",
+          "right": "冷たい",
+          "cosine": 0.05844523556025426,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": 0.1785412769271833,
+          "random_percentile": 0.57781,
+          "random_two_sided_p": 0.86934
+        },
+        {
+          "method": "zscore",
+          "category": "知覚",
+          "left": "明るい",
+          "right": "暗い",
+          "cosine": -0.6715625344104443,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -2.2514760898527495,
+          "random_percentile": 0.00373,
+          "random_two_sided_p": 0.01506
+        },
+        {
+          "method": "zscore",
+          "category": "程度",
+          "left": "長い",
+          "right": "短い",
+          "cosine": -0.2253130648417745,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -0.7660207213273889,
+          "random_percentile": 0.24074,
+          "random_two_sided_p": 0.47409
+        },
+        {
+          "method": "zscore",
+          "category": "程度",
+          "left": "広い",
+          "right": "狭い",
+          "cosine": -0.6294355098884397,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -2.1112455260008822,
+          "random_percentile": 0.00796,
+          "random_two_sided_p": 0.0257
+        },
+        {
+          "method": "zscore",
+          "category": "程度",
+          "left": "深い",
+          "right": "浅い",
+          "cosine": -0.47834830278786117,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.6083131569831952,
+          "random_percentile": 0.04678,
+          "random_two_sided_p": 0.10734
+        },
+        {
+          "method": "zscore",
+          "category": "程度",
+          "left": "厚い",
+          "right": "薄い",
+          "cosine": -0.5597111812629608,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.8791502848039485,
+          "random_percentile": 0.0202,
+          "random_two_sided_p": 0.05353
+        },
+        {
+          "method": "zscore",
+          "category": "数量",
+          "left": "多い",
+          "right": "少ない",
+          "cosine": -0.5124659649782146,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.7218825120598098,
+          "random_percentile": 0.03408,
+          "random_two_sided_p": 0.08144
+        },
+        {
+          "method": "zscore",
+          "category": "価格",
+          "left": "高価",
+          "right": "安価",
+          "cosine": -0.3203132736841615,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.0822531873790682,
+          "random_percentile": 0.14906,
+          "random_two_sided_p": 0.30157
+        },
+        {
+          "method": "zscore",
+          "category": "難易度",
+          "left": "簡単",
+          "right": "難しい",
+          "cosine": -0.5957728620680466,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.9991908025030278,
+          "random_percentile": 0.01292,
+          "random_two_sided_p": 0.03721
+        },
+        {
+          "method": "zscore",
+          "category": "距離",
+          "left": "近い",
+          "right": "遠い",
+          "cosine": -0.46667402816015796,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.5694523513084615,
+          "random_percentile": 0.05193,
+          "random_two_sided_p": 0.11719
+        },
+        {
+          "method": "zscore",
+          "category": "評価",
+          "left": "良い",
+          "right": "悪い",
+          "cosine": -0.9075581447877678,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -3.0370477718140867,
+          "random_percentile": 0.0,
+          "random_two_sided_p": 0.00022
+        },
+        {
+          "method": "zscore",
+          "category": "評価",
+          "left": "安全",
+          "right": "危険",
+          "cosine": -0.4259782514362748,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.433986061411843,
+          "random_percentile": 0.07344,
+          "random_two_sided_p": 0.15904
+        },
+        {
+          "method": "zscore",
+          "category": "評価",
+          "left": "好き",
+          "right": "嫌い",
+          "cosine": -0.3761554746170217,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.2681382199062035,
+          "random_percentile": 0.10499,
+          "random_two_sided_p": 0.21846
+        },
+        {
+          "method": "zscore",
+          "category": "評価",
+          "left": "成功",
+          "right": "失敗",
+          "cosine": -0.7753202019309668,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -2.5968599944947073,
+          "random_percentile": 0.00035,
+          "random_two_sided_p": 0.00342
+        },
+        {
+          "method": "zscore",
+          "category": "状態",
+          "left": "生",
+          "right": "死",
+          "cosine": -0.25185437552773104,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -0.8543702547940875,
+          "random_percentile": 0.21285,
+          "random_two_sided_p": 0.42148
+        },
+        {
+          "method": "zscore",
+          "category": "状態",
+          "left": "健康",
+          "right": "病気",
+          "cosine": -0.32549665948486034,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -1.099507411282636,
+          "random_percentile": 0.14436,
+          "random_two_sided_p": 0.293
+        },
+        {
+          "method": "zscore",
+          "category": "状態",
+          "left": "安定",
+          "right": "不安定",
+          "cosine": -0.7094981898725674,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -2.3777546109660785,
+          "random_percentile": 0.00182,
+          "random_two_sided_p": 0.009
+        },
+        {
+          "method": "zscore",
+          "category": "方向",
           "left": "上",
           "right": "下",
           "cosine": -0.15953315196730147,
@@ -236,23 +1817,234 @@
         },
         {
           "method": "zscore",
-          "left": "生",
-          "right": "死",
-          "cosine": -0.25185437552773104,
+          "category": "方向",
+          "left": "前",
+          "right": "後",
+          "cosine": 0.6837348590295975,
           "random_mean": 0.004809191143812219,
           "random_std": 0.3004125731570582,
-          "z_vs_random": -0.8543702547940875,
-          "random_percentile": 0.21285,
-          "random_two_sided_p": 0.42148
+          "z_vs_random": 2.259977539391593,
+          "random_percentile": 0.98904,
+          "random_two_sided_p": 0.01448
+        },
+        {
+          "method": "zscore",
+          "category": "方向",
+          "left": "内",
+          "right": "外",
+          "cosine": -0.278672878832705,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -0.9436424947111332,
+          "random_percentile": 0.18574,
+          "random_two_sided_p": 0.37173
+        },
+        {
+          "method": "zscore",
+          "category": "方向",
+          "left": "左",
+          "right": "右",
+          "cosine": -0.08825565889350288,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -0.3097901298181019,
+          "random_percentile": 0.39797,
+          "random_two_sided_p": 0.77402
+        },
+        {
+          "method": "zscore",
+          "category": "方向",
+          "left": "表",
+          "right": "裏",
+          "cosine": -0.28964069696660427,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -0.9801516794587543,
+          "random_percentile": 0.17558,
+          "random_two_sided_p": 0.35318
+        },
+        {
+          "method": "zscore",
+          "category": "方向",
+          "left": "始まり",
+          "right": "終わり",
+          "cosine": 0.4556097882036151,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": 1.5006049591144126,
+          "random_percentile": 0.92403,
+          "random_two_sided_p": 0.13819
+        },
+        {
+          "method": "zscore",
+          "category": "方向",
+          "left": "進む",
+          "right": "戻る",
+          "cosine": -0.2433843956934234,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -0.8261757629813914,
+          "random_percentile": 0.22171,
+          "random_two_sided_p": 0.43853
+        },
+        {
+          "method": "zscore",
+          "category": "活動",
+          "left": "忙しい",
+          "right": "暇",
+          "cosine": -0.2460409949892355,
+          "random_mean": 0.004809191143812219,
+          "random_std": 0.3004125731570582,
+          "z_vs_random": -0.8350189324529408,
+          "random_percentile": 0.21918,
+          "random_two_sided_p": 0.43341
         }
       ],
       "aggregate": {
-        "antonym_mean": -0.13356982705648057,
+        "antonym_mean": -0.36171746188069226,
         "random_mean": 0.004809191143812219,
         "random_std": 0.3004125731570582,
-        "mean_difference": -0.1383790182002928,
-        "z_vs_random_mean": -0.9212598310786885,
-        "antonym_above_random_fraction": 0.25
+        "mean_difference": -0.3665266530245045,
+        "random_mean_95ci": [
+          -0.10057943234878709,
+          0.11138995589488311
+        ],
+        "one_sided_p_random_mean_at_most_antonym": 0.0,
+        "antonym_above_random_fraction": 0.12903225806451613
+      },
+      "by_category": {
+        "価格": {
+          "pair_count": 1,
+          "antonym_mean": -0.3203132736841615,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": -0.32512246482797375,
+          "random_mean_95ci": [
+            -0.5402957098032921,
+            0.6018046000515636
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.153
+        },
+        "数量": {
+          "pair_count": 1,
+          "antonym_mean": -0.5124659649782146,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": -0.5172751561220268,
+          "random_mean_95ci": [
+            -0.5469620454105222,
+            0.5951671749392629
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0365
+        },
+        "方向": {
+          "pair_count": 7,
+          "antonym_mean": 0.01140826641138223,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": 0.0065990752675700115,
+          "random_mean_95ci": [
+            -0.21544682273494434,
+            0.23532652984158023
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.5273
+        },
+        "時間": {
+          "pair_count": 1,
+          "antonym_mean": -0.5803691937808715,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": -0.5851783849246837,
+          "random_mean_95ci": [
+            -0.5369166440709473,
+            0.6076554669123007
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0139
+        },
+        "活動": {
+          "pair_count": 2,
+          "antonym_mean": -0.03489331486006282,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": -0.03970250600387504,
+          "random_mean_95ci": [
+            -0.3883517161926512,
+            0.42000033816510657
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.439
+        },
+        "温度": {
+          "pair_count": 1,
+          "antonym_mean": 0.05844523556025426,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": 0.05363604441644204,
+          "random_mean_95ci": [
+            -0.5315920920872426,
+            0.587012155694811
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.5793
+        },
+        "状態": {
+          "pair_count": 3,
+          "antonym_mean": -0.4289497416283863,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": -0.4337589327721985,
+          "random_mean_95ci": [
+            -0.32662617032259683,
+            0.3475267849192516
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0047
+        },
+        "知覚": {
+          "pair_count": 1,
+          "antonym_mean": -0.6715625344104443,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": -0.6763717255542565,
+          "random_mean_95ci": [
+            -0.54269046557734,
+            0.5947526258179672
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0048
+        },
+        "程度": {
+          "pair_count": 8,
+          "antonym_mean": -0.5453423292852723,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": -0.5501515204290844,
+          "random_mean_95ci": [
+            -0.2008774494637723,
+            0.21432589357188503
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0
+        },
+        "評価": {
+          "pair_count": 4,
+          "antonym_mean": -0.6212530181930078,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": -0.62606220933682,
+          "random_mean_95ci": [
+            -0.28291641154881336,
+            0.3110758659138353
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0
+        },
+        "距離": {
+          "pair_count": 1,
+          "antonym_mean": -0.46667402816015796,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": -0.4714832193039702,
+          "random_mean_95ci": [
+            -0.536533586196578,
+            0.609271874772901
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0507
+        },
+        "難易度": {
+          "pair_count": 1,
+          "antonym_mean": -0.5957728620680466,
+          "random_mean": 0.004809191143812219,
+          "mean_difference": -0.6005820532118588,
+          "random_mean_95ci": [
+            -0.5358942302047487,
+            0.607433738076998
+          ],
+          "one_sided_p_random_mean_at_most_antonym": 0.0115
+        }
       }
     }
   }

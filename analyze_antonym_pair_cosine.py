@@ -11,14 +11,49 @@ import numpy as np
 
 
 PAIRS = [
-    ("勝利", "敗北"),
-    ("光", "闇"),
-    ("春", "秋"),
-    ("上", "下"),
-    ("生", "死"),
-    ("愛", "憎しみ"),
-    ("美しい", "醜い"),
-    ("善", "悪"),
+    ("程度", "高い", "低い"),
+    ("程度", "重い", "軽い"),
+    ("時間", "新しい", "古い"),
+    ("程度", "大きい", "小さい"),
+    ("程度", "強い", "弱い"),
+    ("活動", "早い", "遅い"),
+    ("温度", "熱い", "冷たい"),
+    ("知覚", "明るい", "暗い"),
+    ("活動", "静か", "うるさい"),
+    ("程度", "硬い", "柔らかい"),
+    ("程度", "長い", "短い"),
+    ("程度", "広い", "狭い"),
+    ("程度", "深い", "浅い"),
+    ("程度", "厚い", "薄い"),
+    ("数量", "多い", "少ない"),
+    ("価格", "高価", "安価"),
+    ("難易度", "簡単", "難しい"),
+    ("距離", "近い", "遠い"),
+    ("評価", "良い", "悪い"),
+    ("評価", "美しい", "醜い"),
+    ("評価", "正しい", "間違った"),
+    ("評価", "安全", "危険"),
+    ("評価", "好き", "嫌い"),
+    ("評価", "成功", "失敗"),
+    ("評価", "勝利", "敗北"),
+    ("状態", "生", "死"),
+    ("状態", "健康", "病気"),
+    ("状態", "自然", "人工的"),
+    ("状態", "清潔", "汚れた"),
+    ("状態", "安定", "不安定"),
+    ("方向", "上", "下"),
+    ("方向", "前", "後"),
+    ("方向", "内", "外"),
+    ("方向", "左", "右"),
+    ("方向", "表", "裏"),
+    ("方向", "始まり", "終わり"),
+    ("方向", "出口", "入口"),
+    ("方向", "進む", "戻る"),
+    ("活動", "忙しい", "暇"),
+    ("活動", "興奮する", "退屈な"),
+    ("時間", "現代的な", "古風な"),
+    ("時間", "未来的な", "過去の"),
+    ("時間", "一時的な", "永続的な"),
 ]
 
 
@@ -84,14 +119,25 @@ def main() -> None:
     index = {word: i for i, word in enumerate(words)}
     dimensions = len(metadata["dimensions"])
 
-    available = [(a, b) for a, b in PAIRS if a in index and b in index]
-    missing = [
-        {"left": a, "right": b, "missing": [word for word in (a, b) if word not in index]}
-        for a, b in PAIRS
-        if a not in index or b not in index
+    available = [
+        (category, left_word, right_word)
+        for category, left_word, right_word in PAIRS
+        if left_word in index and right_word in index
     ]
-    left = np.array([index[a] for a, _ in available], dtype=int)
-    right = np.array([index[b] for _, b in available], dtype=int)
+    missing = [
+        {
+            "category": category,
+            "left": left_word,
+            "right": right_word,
+            "missing": [
+                word for word in (left_word, right_word) if word not in index
+            ],
+        }
+        for category, left_word, right_word in PAIRS
+        if left_word not in index or right_word not in index
+    ]
+    left = np.array([index[left_word] for _, left_word, _ in available], dtype=int)
+    right = np.array([index[right_word] for _, _, right_word in available], dtype=int)
     forbidden = {(int(a), int(b)) for a, b in zip(left, right)}
     rng = np.random.default_rng(args.seed)
     random_left, random_right = random_pairs(
@@ -113,8 +159,14 @@ def main() -> None:
         "dimensions": dimensions,
         "random_pairs": args.random_pairs,
         "seed": args.seed,
-        "antonym_pairs_requested": [{"left": a, "right": b} for a, b in PAIRS],
-        "antonym_pairs_available": [{"left": a, "right": b} for a, b in available],
+        "antonym_pairs_requested": [
+            {"category": category, "left": left_word, "right": right_word}
+            for category, left_word, right_word in PAIRS
+        ],
+        "antonym_pairs_available": [
+            {"category": category, "left": left_word, "right": right_word}
+            for category, left_word, right_word in available
+        ],
         "missing_pairs": missing,
         "methods": {},
     }
@@ -122,37 +174,75 @@ def main() -> None:
         pair_values = cosine_pairs(matrix, left, right)
         random_values = cosine_pairs(matrix, random_left, random_right)
         method_rows = []
-        for (a, b), value in zip(available, pair_values):
+        for (category, a, b), value in zip(available, pair_values):
             stats = statistics(np.array([value]), random_values)
-            row = {"method": method, "left": a, "right": b, **stats}
+            row = {
+                "method": method,
+                "category": category,
+                "left": a,
+                "right": b,
+                **stats,
+            }
             method_rows.append(row)
             results.append(row)
         aggregate_value = float(pair_values.mean()) if len(pair_values) else None
         aggregate = {}
         if aggregate_value is not None:
+            rng_means = np.mean(
+                rng.choice(random_values, size=(10_000, len(pair_values))),
+                axis=1,
+            )
             aggregate = {
                 "antonym_mean": aggregate_value,
                 "random_mean": float(random_values.mean()),
                 "random_std": float(random_values.std(ddof=1)),
                 "mean_difference": aggregate_value - float(random_values.mean()),
-                "z_vs_random_mean": float(
-                    (aggregate_value - random_values.mean())
-                    / max(random_values.std(ddof=1) / np.sqrt(len(pair_values)), 1e-12)
+                "random_mean_95ci": [
+                    float(np.percentile(rng_means, 2.5)),
+                    float(np.percentile(rng_means, 97.5)),
+                ],
+                "one_sided_p_random_mean_at_most_antonym": float(
+                    np.mean(rng_means <= aggregate_value)
                 ),
                 "antonym_above_random_fraction": float(
                     np.mean(pair_values > random_values.mean())
                 ),
             }
+        categories = sorted({category for category, _, _ in available})
+        category_summary = {}
+        for category in categories:
+            indices = [
+                i for i, (item_category, _, _) in enumerate(available)
+                if item_category == category
+            ]
+            category_values = pair_values[indices]
+            category_random_means = np.mean(
+                rng.choice(random_values, size=(10_000, len(indices))), axis=1
+            )
+            category_summary[category] = {
+                "pair_count": len(indices),
+                "antonym_mean": float(category_values.mean()),
+                "random_mean": float(random_values.mean()),
+                "mean_difference": float(category_values.mean() - random_values.mean()),
+                "random_mean_95ci": [
+                    float(np.percentile(category_random_means, 2.5)),
+                    float(np.percentile(category_random_means, 97.5)),
+                ],
+                "one_sided_p_random_mean_at_most_antonym": float(
+                    np.mean(category_random_means <= category_values.mean())
+                ),
+            }
         summary["methods"][method] = {
             "pairs": method_rows,
             "aggregate": aggregate,
+            "by_category": category_summary,
         }
 
     with (output_dir / "pair_cosines.csv").open(
         "w", encoding="utf-8-sig", newline=""
     ) as handle:
         fieldnames = [
-            "method", "left", "right", "cosine", "random_mean", "random_std",
+            "method", "category", "left", "right", "cosine", "random_mean", "random_std",
             "z_vs_random", "random_percentile", "random_two_sided_p",
         ]
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
@@ -177,33 +267,57 @@ def main() -> None:
         "反義語が同じ文脈・印象軸上に配置されている可能性があります。",
         "これは反転ベクトルの近傍順位とは別の検証です。",
         "",
-        "| 方法 | 利用可能ペア数 | 反義語平均 | ランダム平均 | 差 |",
-        "|---|---:|---:|---:|---:|",
+        f"利用可能な反義語ペアは **{len(available)}組**、カテゴリは"
+        f" **{len(set(category for category, _, _ in available))}種類**です。",
+        "",
+        "| 方法 | ペア数 | 反義語平均 | ランダム平均 | 差 | ランダム平均の95%区間 |",
+        "|---|---:|---:|---:|---:|---|",
     ]
     for method, value in summary["methods"].items():
         aggregate = value["aggregate"]
         if aggregate:
             lines.append(
                 f"| {method} | {len(available)} | {aggregate['antonym_mean']:.4f} | "
-                f"{aggregate['random_mean']:.4f} | {aggregate['mean_difference']:+.4f} |"
+                f"{aggregate['random_mean']:.4f} | {aggregate['mean_difference']:+.4f} | "
+                f"{aggregate['random_mean_95ci'][0]:.4f}–{aggregate['random_mean_95ci'][1]:.4f} |"
             )
+    lines.append("")
+    lines.append(
+        "片側モンテカルロp値（反義語平均がランダム平均以下となる確率）は"
+        f"`summary.json`の`one_sided_p_random_mean_at_most_antonym`に保存しています。"
+        "推定回数が10,000回なので、0.0は厳密なゼロではなくp<0.0001を表します。"
+    )
+    lines += [
+        "",
+        "## カテゴリ別（centered）",
+        "",
+        "| カテゴリ | ペア数 | 反義語平均 | ランダム平均 | 差 |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    centered_categories = summary["methods"]["centered"]["by_category"]
+    for category, aggregate in centered_categories.items():
+        lines.append(
+            f"| {category} | {aggregate['pair_count']} | "
+            f"{aggregate['antonym_mean']:.4f} | {aggregate['random_mean']:.4f} | "
+            f"{aggregate['mean_difference']:+.4f} |"
+        )
     lines += [
         "",
         "## ペア別結果",
         "",
-        "| 方法 | ペア | コサイン | ランダム平均との差(z) | ランダム分位 |",
-        "|---|---|---:|---:|---:|",
+        "| 方法 | カテゴリ | ペア | コサイン | ランダム平均との差(z) | ランダム分位 |",
+        "|---|---|---|---:|---:|---:|",
     ]
     for row in results:
         lines.append(
-            f"| {row['method']} | {row['left']}–{row['right']} | {row['cosine']:.4f} | "
+            f"| {row['method']} | {row['category']} | {row['left']}–{row['right']} | {row['cosine']:.4f} | "
             f"{row['z_vs_random']:+.2f} | {row['random_percentile']:.1%} |"
         )
     if missing:
         lines += ["", "## 語彙外のペア", ""]
         for pair in missing:
             lines.append(
-                f"- {pair['left']}–{pair['right']}: "
+                f"- {pair['category']} / {pair['left']}–{pair['right']}: "
                 f"{', '.join(pair['missing'])} が語彙外"
             )
     lines += [
