@@ -108,7 +108,9 @@ async function loadModel() {
   const dimension = metadata.dimensions.length;
   if (vectors.length !== metadata.concepts.length * dimension) throw new Error("ベクトルデータのサイズが一致しません。");
   model = { concepts: metadata.concepts, dimensions: metadata.dimensions, vectors, dimension, index: Object.fromEntries(metadata.concepts.map((word, i) => [word, i])) };
-  $("words").innerHTML = metadata.concepts.map((word) => `<option value="${escapeHtml(word)}">`).join("");
+  // Limit datalist options to top 15,000 words to ensure smooth DOM rendering,
+  // while all 200,000 words remain fully searchable and comparable via model.index.
+  $("words").innerHTML = metadata.concepts.slice(0, 15000).map((word) => `<option value="${escapeHtml(word)}">`).join("");
   $("presets").innerHTML = PRESETS.map(([left, right]) => `<button class="preset" data-left="${escapeHtml(left)}" data-right="${escapeHtml(right)}">${escapeHtml(left)} / ${escapeHtml(right)}</button>`).join("");
   document.querySelectorAll(".preset").forEach((button) => button.addEventListener("click", () => setPair(button.dataset.left, button.dataset.right)));
   $("loading").classList.add("hidden");
