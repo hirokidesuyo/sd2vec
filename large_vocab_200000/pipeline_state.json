@@ -1,0 +1,108 @@
+{
+  "total_chunks": 20,
+  "chunk_size": 10000,
+  "active_colab": null,
+  "active_5060ti": null,
+  "chunks": {
+    "chunk_0000": {
+      "status": "completed",
+      "worker": "5060ti",
+      "progress": 10000
+    },
+    "chunk_0001": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0002": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0003": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0004": {
+      "status": "completed",
+      "worker": "5060ti",
+      "progress": 10000
+    },
+    "chunk_0005": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0006": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0007": {
+      "status": "completed",
+      "worker": "5060ti",
+      "progress": 10000
+    },
+    "chunk_0008": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0009": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0010": {
+      "status": "completed",
+      "worker": "5060ti",
+      "progress": 10000
+    },
+    "chunk_0011": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0012": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0013": {
+      "status": "completed",
+      "worker": "5060ti",
+      "progress": 10000
+    },
+    "chunk_0014": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0015": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0016": {
+      "status": "completed",
+      "worker": "5060ti",
+      "progress": 10000
+    },
+    "chunk_0017": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0018": {
+      "status": "completed",
+      "worker": "colab",
+      "progress": 10000
+    },
+    "chunk_0019": {
+      "status": "completed",
+      "worker": "5060ti",
+      "progress": 10000
+    }
+  }
+}
