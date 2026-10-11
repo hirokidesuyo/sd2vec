@@ -143,8 +143,8 @@ function renderSliderControls() {
         <span class="slider-val-badge" id="slider-val-${i}">0.0</span>
       </div>
       <div class="slider-labels">
-        <span>${escapeHtml(dim.left)} (+)</span>
-        <span>${escapeHtml(dim.right)} (-)</span>
+        <span>${escapeHtml(dim.right)} (−)</span>
+        <span>${escapeHtml(dim.left)} (＋)</span>
       </div>
       <input type="range" class="slider-control" id="slider-input-${i}"
              min="-3" max="3" step="0.5" value="0"
@@ -311,7 +311,7 @@ function renderEqualizerResults(baseWord, neighbors) {
         <tbody>
           ${modifiedAxes.map((a) => `
             <tr>
-              <td><b>${escapeHtml(a.id)}</b> (${escapeHtml(a.leftLabel)} / ${escapeHtml(a.rightLabel)})</td>
+              <td><b>${escapeHtml(a.id)}</b> (${escapeHtml(a.rightLabel)} [−] / ${escapeHtml(a.leftLabel)} [＋])</td>
               <td>${a.baseVal.toFixed(2)}</td>
               <td><span style="color:${a.offset > 0 ? '#4263eb' : '#e67700'};font-weight:600;">${a.offset > 0 ? '+' : ''}${a.offset.toFixed(1)}</span></td>
               <td><b>${a.finalVal.toFixed(2)}</b></td>
