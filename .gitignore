@@ -7,3 +7,5 @@ build/
 *.egg-info/
 .DS_Store
 data/chive/*.tar.gz
+large_vocab_200000/vectors/
+outputs_test/
