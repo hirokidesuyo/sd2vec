@@ -2,17 +2,39 @@ const DATA_ROOT = "data/";
 const $ = (id) => document.getElementById(id);
 let model = null;
 
-const PRESETS = [
+// 2-Word Comparison Presets
+const COMPARE_PRESETS = [
   ["春", "秋"], ["高い", "低い"], ["強い", "弱い"], ["明るい", "暗い"],
   ["上", "下"], ["生", "死"], ["成功", "失敗"], ["王", "女王"],
 ];
 
-const MATH_PRESETS = [
-  { a: "王", b: "男", c: "女", label: "王 − 男 ＋ 女" },
-  { a: "日本", b: "東京", c: "パリ", label: "日本 − 東京 ＋ パリ" },
-  { a: "猫", b: "", c: "大きい", label: "猫 ＋ 大きい" },
-  { a: "夏", b: "暑い", c: "寒い", label: "夏 − 暑い ＋ 寒い" },
-  { a: "太陽", b: "昼", c: "夜", label: "太陽 − 昼 ＋ 夜" },
+// Equalizer (Dimension Manipulator) Analysis Presets
+const EQUALIZER_PRESETS = [
+  {
+    label: "ラーメン (高価・健康的・現代的)",
+    base: "ラーメン",
+    offsets: { expensive: 3.0, healthy: 3.0, modern: 2.0 },
+  },
+  {
+    label: "ラーメン (混沌・刺激的・非日常)",
+    base: "ラーメン",
+    offsets: { orderly: -3.0, safe: -3.0, exciting: 3.0 },
+  },
+  {
+    label: "政治家 (誠実・道徳的・穏やか)",
+    base: "政治家",
+    offsets: { honest: 4.0, moral: 4.0, calm: 3.0 },
+  },
+  {
+    label: "学校 (混沌・活動的・刺激)",
+    base: "学校",
+    offsets: { orderly: -4.0, safe: -4.0, exciting: 3.0 },
+  },
+  {
+    label: "白湯 (力強さ・現代的・活動的)",
+    base: "白湯",
+    offsets: { strong: 3.5, modern: 3.0, active: 2.5 },
+  },
 ];
 
 function escapeHtml(value) {
@@ -99,64 +121,107 @@ function analyze() {
 }
 
 function setPair(left, right) {
-  $("left").value = left; $("right").value = right;
+  $("left").value = left;
+  $("right").value = right;
   switchTab("tab-compare");
   analyze();
 }
 window.setPair = setPair;
 
 // ---------------------------------------------------------------------------
-// Concept Math (Analogy: A - B + C) Logic
+// Dimension Equalizer (尺度調整探索) Logic
 // ---------------------------------------------------------------------------
-function getWordDirection(word, useCenter) {
-  const idx = model.index[word];
-  if (idx === undefined) throw new Error(`語彙にありません: ${word}`);
-  const dim = model.dimension;
-  const offset = idx * dim;
-  const vec = new Float32Array(dim);
-  let normSq = 0;
-  for (let d = 0; d < dim; d++) {
-    const val = useCenter ? (model.vectors[offset + d] - model.meanVector[d]) : model.vectors[offset + d];
-    vec[d] = val;
-    normSq += val * val;
-  }
-  const norm = Math.max(Math.sqrt(normSq), 1e-12);
-  for (let d = 0; d < dim; d++) vec[d] /= norm;
-  return vec;
+const sliderOffsets = new Float32Array(50);
+let equalizerDebounceTimer = null;
+
+function renderSliderControls() {
+  const container = $("eq-sliders-container");
+  container.innerHTML = model.dimensions.map((dim, i) => `
+    <div class="slider-group" id="slider-group-${i}">
+      <div class="slider-header">
+        <span class="slider-name">${escapeHtml(dim.id)}</span>
+        <span class="slider-val-badge" id="slider-val-${i}">0.0</span>
+      </div>
+      <div class="slider-labels">
+        <span>${escapeHtml(dim.left)} (+)</span>
+        <span>${escapeHtml(dim.right)} (-)</span>
+      </div>
+      <input type="range" class="slider-control" id="slider-input-${i}"
+             min="-3" max="3" step="0.5" value="0"
+             data-index="${i}">
+    </div>
+  `).join("");
+
+  document.querySelectorAll(".slider-control").forEach((input) => {
+    input.addEventListener("input", (e) => {
+      const idx = parseInt(e.target.dataset.index, 10);
+      const val = parseFloat(e.target.value);
+      sliderOffsets[idx] = val;
+      updateSliderUI(idx, val);
+      scheduleEqualizerUpdate();
+    });
+  });
 }
 
-function runMath() {
-  $("math-error").classList.add("hidden");
+function updateSliderUI(idx, val) {
+  const badge = $(`slider-val-${idx}`);
+  const group = $(`slider-group-${idx}`);
+  if (badge) badge.textContent = (val > 0 ? "+" : "") + val.toFixed(1);
+  if (group) group.classList.toggle("is-modified", val !== 0);
+}
+
+function resetAllSliders() {
+  for (let i = 0; i < model.dimension; i++) {
+    sliderOffsets[i] = 0;
+    const input = $(`slider-input-${i}`);
+    if (input) input.value = "0";
+    updateSliderUI(i, 0);
+  }
+  scheduleEqualizerUpdate();
+}
+
+function setEqualizerPreset(preset) {
+  $("eq-base").value = preset.base;
+  for (let i = 0; i < model.dimension; i++) {
+    const dimId = model.dimensions[i].id;
+    const val = preset.offsets[dimId] || 0;
+    sliderOffsets[i] = val;
+    const input = $(`slider-input-${i}`);
+    if (input) input.value = val.toString();
+    updateSliderUI(i, val);
+  }
+  runEqualizer();
+}
+
+function scheduleEqualizerUpdate() {
+  clearTimeout(equalizerDebounceTimer);
+  equalizerDebounceTimer = setTimeout(runEqualizer, 60);
+}
+
+function runEqualizer() {
+  $("eq-error").classList.add("hidden");
   try {
-    const wordA = $("math-a").value.trim();
-    const wordB = $("math-b").value.trim();
-    const wordC = $("math-c").value.trim();
+    const baseWord = $("eq-base").value.trim();
+    if (!baseWord) throw new Error("基準概念を入力してください。");
 
-    if (!wordA) throw new Error("基準の語 (A) を入力してください。");
+    const baseIndex = model.index[baseWord];
+    if (baseIndex === undefined) throw new Error(`語彙にありません: ${baseWord}`);
 
-    const useCenter = $("math-center").checked;
+    const useCenter = $("eq-center").checked;
     const dim = model.dimension;
+    const offsetBase = baseIndex * dim;
+
+    // Create modified query vector
     const query = new Float32Array(dim);
-    const excluded = new Set([wordA]);
-
-    const vecA = getWordDirection(wordA, useCenter);
-    for (let d = 0; d < dim; d++) query[d] += vecA[d];
-
-    if (wordB) {
-      excluded.add(wordB);
-      const vecB = getWordDirection(wordB, useCenter);
-      for (let d = 0; d < dim; d++) query[d] -= vecB[d];
-    }
-
-    if (wordC) {
-      excluded.add(wordC);
-      const vecC = getWordDirection(wordC, useCenter);
-      for (let d = 0; d < dim; d++) query[d] += vecC[d];
-    }
-
-    // Normalize query vector
     let qNormSq = 0;
-    for (let d = 0; d < dim; d++) qNormSq += query[d] * query[d];
+    for (let d = 0; d < dim; d++) {
+      let val = model.vectors[offsetBase + d];
+      if (useCenter) val -= model.meanVector[d];
+      val += sliderOffsets[d];
+      query[d] = val;
+      qNormSq += val * val;
+    }
+
     const qNorm = Math.max(Math.sqrt(qNormSq), 1e-12);
     for (let d = 0; d < dim; d++) query[d] /= qNorm;
 
@@ -164,56 +229,46 @@ function runMath() {
     const count = model.count;
     const scores = new Float32Array(count);
     for (let i = 0; i < count; i++) {
-      const offset = i * dim;
+      const off = i * dim;
       let dot = 0;
       if (useCenter) {
         for (let d = 0; d < dim; d++) {
-          dot += (model.vectors[offset + d] - model.meanVector[d]) * query[d];
+          dot += (model.vectors[off + d] - model.meanVector[d]) * query[d];
         }
         scores[i] = dot / Math.max(model.centeredNorms[i], 1e-12);
       } else {
         for (let d = 0; d < dim; d++) {
-          dot += model.vectors[offset + d] * query[d];
+          dot += model.vectors[off + d] * query[d];
         }
         scores[i] = dot / Math.max(model.rawNorms[i], 1e-12);
       }
     }
 
-    // Extract top 10 (skipping excluded words)
-    // Find top-10 using min-heap / threshold
+    // Extract top 10 (skipping base word)
     const topIndices = [];
     for (let i = 0; i < count; i++) {
+      if (i === baseIndex) continue;
       const word = model.concepts[i];
-      if (excluded.has(word)) continue;
       const s = scores[i];
       if (topIndices.length < 10) {
-        topIndices.push({ idx: i, word, score: s });
+        topIndices.push({ word, score: s });
         if (topIndices.length === 10) topIndices.sort((a, b) => b.score - a.score);
       } else if (s > topIndices[9].score) {
-        topIndices[9] = { idx: i, word, score: s };
+        topIndices[9] = { word, score: s };
         topIndices.sort((a, b) => b.score - a.score);
       }
     }
 
-    renderMathResult({
-      formula: `${wordA}${wordB ? ` − ${wordB}` : ""}${wordC ? ` ＋ ${wordC}` : ""}`,
-      baseWord: wordA,
-      neighbors: topIndices,
-      queryVector: query,
-    });
+    renderEqualizerResults(baseWord, topIndices);
   } catch (err) {
-    $("math-result").classList.add("hidden");
-    $("math-error").textContent = err.message;
-    $("math-error").classList.remove("hidden");
+    $("eq-error").textContent = err.message;
+    $("eq-error").classList.remove("hidden");
   }
 }
 
-function renderMathResult(res) {
-  $("math-result").classList.remove("hidden");
-  $("math-headline").textContent = `計算結果: ${res.formula}`;
-
+function renderEqualizerResults(baseWord, neighbors) {
   // Render neighbors
-  $("math-neighbors").innerHTML = res.neighbors.map((n, i) => `
+  $("eq-neighbors").innerHTML = neighbors.map((n, i) => `
     <div class="neighbor-item">
       <div class="neighbor-left">
         <span class="neighbor-rank">#${i + 1}</span>
@@ -221,79 +276,58 @@ function renderMathResult(res) {
       </div>
       <div class="neighbor-right">
         <span class="neighbor-score">${n.score.toFixed(4)}</span>
-        <button class="neighbor-btn" onclick="setPair('${escapeHtml(res.baseWord)}', '${escapeHtml(n.word)}')">2語比較</button>
+        <button class="neighbor-btn" onclick="setPair('${escapeHtml(baseWord)}', '${escapeHtml(n.word)}')">比較</button>
       </div>
     </div>
   `).join("");
 
-  // Axes profile of composite vector
+  // Render modified axes summary
+  const modifiedAxes = [];
+  const baseIdx = model.index[baseWord];
   const dim = model.dimension;
-  const axes = [];
   for (let d = 0; d < dim; d++) {
-    axes.push({
-      id: model.dimensions[d].id,
-      leftLabel: model.dimensions[d].left,
-      rightLabel: model.dimensions[d].right,
-      value: res.queryVector[d],
-    });
+    const offset = sliderOffsets[d];
+    if (offset !== 0) {
+      const baseVal = model.vectors[baseIdx * dim + d];
+      modifiedAxes.push({
+        id: model.dimensions[d].id,
+        leftLabel: model.dimensions[d].left,
+        rightLabel: model.dimensions[d].right,
+        baseVal,
+        offset,
+        finalVal: baseVal + offset,
+      });
+    }
   }
 
-  const sortedByVal = [...axes].sort((a, b) => b.value - a.value);
-  const posAxes = sortedByVal.slice(0, 8);
-  const negAxes = sortedByVal.slice(-8).reverse();
-  const neutralAxes = [...axes].sort((a, b) => Math.abs(a.value) - Math.abs(b.value)).slice(0, 8);
-
-  function renderQueryAxis(a) {
-    const width = Math.min(100, Math.abs(a.value) * 120);
-    return `
-      <div class="axis">
-        <div class="axis-title">
-          <span>${escapeHtml(a.id)}</span>
-          <span style="font-size:12px;color:var(--muted);">${a.value >= 0 ? "+" : ""}${a.value.toFixed(3)}</span>
-        </div>
-        <div class="axis-label">${escapeHtml(a.leftLabel)} (正) / ${escapeHtml(a.rightLabel)} (負)</div>
-        <div class="bar"><i class="${a.value < 0 ? "negative" : ""}" style="width:${width}%"></i></div>
-      </div>
+  if (modifiedAxes.length === 0) {
+    $("eq-modified-axes").innerHTML = `<p class="muted" style="font-size:13px;">現在調整されている尺度はありません（基準概念の原点最近傍です）。</p>`;
+  } else {
+    $("eq-modified-axes").innerHTML = `
+      <table>
+        <thead>
+          <tr><th>尺度</th><th>原点値</th><th>調整オフセット</th><th>合成値</th></tr>
+        </thead>
+        <tbody>
+          ${modifiedAxes.map((a) => `
+            <tr>
+              <td><b>${escapeHtml(a.id)}</b> (${escapeHtml(a.leftLabel)} / ${escapeHtml(a.rightLabel)})</td>
+              <td>${a.baseVal.toFixed(2)}</td>
+              <td><span style="color:${a.offset > 0 ? '#4263eb' : '#e67700'};font-weight:600;">${a.offset > 0 ? '+' : ''}${a.offset.toFixed(1)}</span></td>
+              <td><b>${a.finalVal.toFixed(2)}</b></td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
     `;
   }
-
-  $("math-pos-axes").innerHTML = posAxes.map(renderQueryAxis).join("");
-  $("math-neg-axes").innerHTML = negAxes.map(renderQueryAxis).join("");
-  $("math-neutral-axes").innerHTML = neutralAxes.map(renderQueryAxis).join("");
-
-  $("math-all-axes").innerHTML = `
-    <table>
-      <thead><tr><th>尺度</th><th>左極 (正)</th><th>右極 (負)</th><th>合成値</th></tr></thead>
-      <tbody>
-        ${axes.map((a) => `
-          <tr>
-            <td>${escapeHtml(a.id)}</td>
-            <td>${escapeHtml(a.leftLabel)}</td>
-            <td>${escapeHtml(a.rightLabel)}</td>
-            <td>${a.value >= 0 ? "+" : ""}${a.value.toFixed(4)}</td>
-          </tr>
-        `).join("")}
-      </tbody>
-    </table>
-  `;
-}
-
-function setMathPreset(a, b, c) {
-  $("math-a").value = a;
-  $("math-b").value = b;
-  $("math-c").value = c;
-  runMath();
 }
 
 // ---------------------------------------------------------------------------
 // Dynamic Autocomplete across 200,000 words
 // ---------------------------------------------------------------------------
 function setupAutocomplete() {
-  const inputs = [
-    $("left"), $("right"),
-    $("math-a"), $("math-b"), $("math-c"),
-  ].filter(Boolean);
-
+  const inputs = [$("left"), $("right"), $("eq-base")].filter(Boolean);
   const suggestList = $("suggest-list");
   let debounceTimer = null;
 
@@ -394,37 +428,41 @@ async function loadModel() {
     centeredNorms,
   };
 
-  // Populate presets
-  $("presets").innerHTML = PRESETS.map(([left, right]) => `
+  // Populate comparison presets
+  $("presets").innerHTML = COMPARE_PRESETS.map(([left, right]) => `
     <button class="preset" data-left="${escapeHtml(left)}" data-right="${escapeHtml(right)}">${escapeHtml(left)} / ${escapeHtml(right)}</button>
   `).join("");
   document.querySelectorAll("#presets .preset").forEach((button) => {
     button.addEventListener("click", () => setPair(button.dataset.left, button.dataset.right));
   });
 
-  $("math-presets").innerHTML = MATH_PRESETS.map((p) => `
-    <button class="preset math-preset-btn" data-a="${escapeHtml(p.a)}" data-b="${escapeHtml(p.b)}" data-c="${escapeHtml(p.c)}">${escapeHtml(p.label)}</button>
+  // Populate equalizer presets
+  $("eq-presets").innerHTML = EQUALIZER_PRESETS.map((p, i) => `
+    <button class="preset eq-preset-btn" data-preset-idx="${i}">${escapeHtml(p.label)}</button>
   `).join("");
-  document.querySelectorAll(".math-preset-btn").forEach((button) => {
-    button.addEventListener("click", () => setMathPreset(button.dataset.a, button.dataset.b, button.dataset.c));
+  document.querySelectorAll(".eq-preset-btn").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const p = EQUALIZER_PRESETS[parseInt(e.target.dataset.presetIdx, 10)];
+      setEqualizerPreset(p);
+    });
   });
 
+  renderSliderControls();
   setupAutocomplete();
+
+  $("eq-reset-btn").addEventListener("click", resetAllSliders);
+  $("eq-base").addEventListener("keydown", (e) => { if (e.key === "Enter") runEqualizer(); });
+  $("eq-center").addEventListener("change", runEqualizer);
+
   $("loading").classList.add("hidden");
   analyze();
-  runMath();
+  runEqualizer();
 }
 
 $("compare").addEventListener("click", analyze);
 [$("left"), $("right")].forEach((input) => {
   input.addEventListener("keydown", (event) => { if (event.key === "Enter") analyze(); });
 });
-
-$("calc-btn").addEventListener("click", runMath);
-[$("math-a"), $("math-b"), $("math-c")].forEach((input) => {
-  input.addEventListener("keydown", (event) => { if (event.key === "Enter") runMath(); });
-});
-$("math-center").addEventListener("change", runMath);
 
 loadModel().catch((error) => {
   $("loading").classList.add("hidden");

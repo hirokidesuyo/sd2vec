@@ -11,11 +11,11 @@
 <main>
   <header class="hero">
     <p class="eyebrow">sd2vec / semantic differential (200,000 words)</p>
-    <h1>軸で見る意味比較・演算</h1>
-    <p>20万語の概念ベクトル（50尺度）を使って、語感の違いを説明し、word2vecのような足し算・引き算を行います。</p>
+    <h1>軸で見る意味比較・尺度操作探索</h1>
+    <p>20万語のSDベクトル（50次元尺度空間）を用いて、概念間の印象差分を分析し、特定の尺度を操作（摂動）した際の近傍概念の変化を調査します。</p>
     <div class="tabs">
       <button id="tab-btn-compare" class="tab-btn active" data-tab="tab-compare">2語の比較</button>
-      <button id="tab-btn-math" class="tab-btn" data-tab="tab-math">概念の足し算・引き算</button>
+      <button id="tab-btn-equalizer" class="tab-btn" data-tab="tab-equalizer">尺度調整探索</button>
     </div>
   </header>
 
@@ -52,52 +52,48 @@
     </section>
   </section>
 
-  <!-- 足し算・引き算タブ -->
-  <section id="tab-math" class="tab-content hidden">
+  <!-- 尺度調整探索タブ（イコライザー） -->
+  <section id="tab-equalizer" class="tab-content hidden">
     <section class="card">
-      <div class="math-form">
-        <div class="math-slot">
-          <label for="math-a">基準の語 (A)</label>
-          <input id="math-a" value="王" list="suggest-list" autocomplete="off" placeholder="例: 王">
+      <div class="eq-header-form">
+        <div class="eq-input-group">
+          <label for="eq-base">基準概念</label>
+          <input id="eq-base" value="ラーメン" list="suggest-list" autocomplete="off" placeholder="基準となる単語を入力">
         </div>
-        <span class="math-op">−</span>
-        <div class="math-slot">
-          <label for="math-b">引く語 (B)</label>
-          <input id="math-b" value="男" list="suggest-list" autocomplete="off" placeholder="空欄可 (例: 男)">
+        <div class="eq-actions">
+          <button id="eq-reset-btn" class="secondary-btn">調整値を初期化</button>
         </div>
-        <span class="math-op">＋</span>
-        <div class="math-slot">
-          <label for="math-c">足す語 (C)</label>
-          <input id="math-c" value="女" list="suggest-list" autocomplete="off" placeholder="空欄可 (例: 女)">
-        </div>
-        <button id="calc-btn">計算する</button>
       </div>
-      <div class="math-options">
-        <label><input type="checkbox" id="math-center" checked> 中心化補正（全語彙の平均を引いて意味コントラストを強調）</label>
+      <div class="presets" id="eq-presets"></div>
+      <div class="eq-options">
+        <label><input type="checkbox" id="eq-center" checked> 中心化補正（全語彙の平均を減算して相対的特徴を強調）</label>
       </div>
-      <div class="presets" id="math-presets"></div>
-      <p id="math-error" class="error hidden"></p>
+      <p id="eq-error" class="error hidden"></p>
     </section>
 
-    <section id="math-result" class="hidden">
-      <section class="card">
-        <h2 id="math-headline">計算結果</h2>
-        <p class="muted">合成された50次元ベクトルに最も近い単語（最近傍 Top-10）です。「比較」を押すと2語比較へ送れます。</p>
-        <div id="math-neighbors" class="neighbors-list"></div>
+    <div class="eq-workspace">
+      <!-- 尺度調整スライダーパネル -->
+      <section class="card eq-sliders-card">
+        <div class="panel-header">
+          <h2>尺度調整パラメータ</h2>
+          <span class="muted" style="font-size:12px;">各尺度のオフセット値を増減させてベクトルを変調します</span>
+        </div>
+        <div id="eq-sliders-container" class="sliders-list"></div>
       </section>
 
-      <section class="card">
-        <h2>合成ベクトルの特徴的な尺度</h2>
-        <p class="muted">足し引きの結果、どのSD軸（快、力量、活動性、規模など）が強く評価されたかを表します。</p>
-        <div class="grid">
-          <div class="panel"><h3>プラス極に強い軸</h3><p>正方向に強く倒れた尺度</p><div id="math-pos-axes"></div></div>
-          <div class="panel"><h3>マイナス極に強い軸</h3><p>負方向に強く倒れた尺度</p><div id="math-neg-axes"></div></div>
-          <div class="panel"><h3>中立に近い軸</h3><p>相殺または評価が平坦な尺度</p><div id="math-neutral-axes"></div></div>
+      <!-- 探索結果パネル -->
+      <section class="card eq-results-card">
+        <h2>変調後の最近傍概念 Top-10</h2>
+        <p class="muted">調整後の合成ベクトルにコサイン類似度が高い概念です。「比較」を押すと2語比較へ反映されます。</p>
+        <div id="eq-neighbors" class="neighbors-list"></div>
+
+        <div style="margin-top:24px;">
+          <h3>変調された尺度</h3>
+          <p class="muted" style="font-size:12px;">オフセットが加えられている尺度とその変調後スコアです。</p>
+          <div id="eq-modified-axes"></div>
         </div>
       </section>
-
-      <section class="card"><h2>合成ベクトルの全50尺度</h2><div id="math-all-axes"></div></section>
-    </section>
+    </div>
   </section>
 
   <!-- 動的オートコンプリート用datalist -->
