@@ -56,7 +56,7 @@ python -m pip install -e ".[inference]"
 ```python
 from sd2vec import SDVectors
 
-model = SDVectors.load("outputs_chive_10000_phase3")
+model = SDVectors.load("large_vocab_200000")
 
 print(model.vector_size)            # 50
 print(model.index_to_key[:3])       # 語彙の先頭
@@ -79,7 +79,7 @@ print(model.most_similar("猫", topn=5))
 ### CLI
 
 ```bash
-sd2vec-neighbors outputs_chive_10000_phase3 猫 --topn 10
+sd2vec-neighbors large_vocab_200000 猫 --topn 10
 ```
 
 出力例:
@@ -142,9 +142,8 @@ Tailscaleインターフェースからの受信を許可してください。
 - `明るい` / `暗い`
 - `王` / `女王`
 
-これらは現在の`outputs_chive_10000_phase3`に両方収録されているペアです。
-`勝利` / `敗北`、`倹約` / `ケチ`などは片方または両方がこの10,000語語彙にないため、
-プリセットには含めていません。
+これらは代表的な対比ペアの例です。統合版の`large_vocab_200000`では200,000語を網羅しているため、
+`勝利` / `敗北`、`倹約` / `ケチ`、`勇気` / `無謀`など幅広い語彙のニュアンス比較が可能です。
 
 別の成果物を使う場合:
 
@@ -154,7 +153,7 @@ python webapp.py --input outputs_d1 --port 8765
 
 このアプリの比較は、語の辞書的な同義・反義を自動判定するものではありません。
 入力された2語の評定プロフィールを比較し、「どの尺度が共通し、どの尺度が異なるか」を
-表示するための探索ツールです。`outputs_chive_10000_phase3`では、収録語だけが比較できます。
+表示するための探索ツールです。収録語（`large_vocab_200000`では200,000語）同士が比較できます。
 
 ### GitHub Pages版
 
@@ -165,9 +164,9 @@ python webapp.py --input outputs_d1 --port 8765
 https://hirokidesuyo.github.io/sd2vec/
 ```
 
-静的版の公開データは、10,000語×50尺度の`Float32`ベクトル（約2MB）と語彙・尺度メタデータだけです。
+静的版の公開データは、200,000語×50尺度の`Float32`バイナリベクトル（約40MB）と語彙・尺度メタデータです。
 `raw_scores.jsonl`やCSV全体はブラウザへ送信しません。GitHub Pagesのデプロイは
-`.github/workflows/pages.yml`で行います。リポジトリSettingsのPagesで、初回のみ
+`.github/workflows/pages.yml`で行われます。リポジトリSettingsのPagesで、初回のみ
 Sourceを**GitHub Actions**に設定してください。
 
 ### 大規模語彙の生成
@@ -191,27 +190,20 @@ Colabが切断された場合も同じコマンドを再実行すれば完了済
 
 ## 収録データ
 
-### d1-3B・200概念・30尺度
+### d1-3B・chiVe語彙200,000語・50尺度（本番推奨データ）
 
-`outputs_d1/`には動作確認用の小規模データを収録しています。
+`large_vocab_200000/`には、chiVe v1.3 mc90から選定した200,000語の統合本番データを収録しています。
 
-- 200概念
-- 30尺度
-- 2反復
-- ベクトル形状: `(200, 30)`
+- 200,000語
+- 50尺度
+- ベクトル形状: `(200000, 50)`
+- 各チャンク（1万語×20）の自動パイプライン評定を統合
+- `vectors.npy`、`metadata.json`、`quality.json`を含む
+- d1の`score`出力を0〜6からSD値-3〜3へ変換
 
-### d1-3B・chiVe語彙10,000語・30尺度
+### d1-3B・chiVe語彙10,000語・50尺度（検証サブセット）
 
-`outputs_chive_10000/`には、chiVe v1.3 mc90から選定した10,000語のデータを収録しています。
-
-- 10,000語
-- 30尺度
-- ベクトル形状: `(10000, 30)`
-- `vectors.npy`、`vectors.csv`、最近傍レポートを含む
-
-### d1-3B・chiVe語彙10,000語・50尺度
-
-現在の主な実験データは`outputs_chive_10000_phase3/`です。
+`outputs_chive_10000_phase3/`には、上位10,000語のデータを収録しています。
 
 - 10,000語
 - 50尺度
@@ -219,6 +211,24 @@ Colabが切断された場合も同じコマンドを再実行すれば完了済
 - 1反復
 - 10,000行の`raw_scores.jsonl`
 - d1の`score`出力を0〜6からSD値-3〜3へ変換
+
+### d1-3B・chiVe語彙10,000語・30尺度（旧版）
+
+`outputs_chive_10000/`には、初期実験の30尺度データを収録しています。
+
+- 10,000語
+- 30尺度
+- ベクトル形状: `(10000, 30)`
+- `vectors.npy`、`vectors.csv`、最近傍レポートを含む
+
+### d1-3B・200概念・30尺度（動作確認用）
+
+`outputs_d1/`には動作確認用の小規模データを収録しています。
+
+- 200概念
+- 30尺度
+- 2反復
+- ベクトル形状: `(200, 30)`
 
 ## 出力ファイル
 
@@ -246,7 +256,7 @@ Colabが切断された場合も同じコマンドを再実行すれば完了済
 import numpy as np
 from sd2vec import SDVectors
 
-model = SDVectors.load("outputs_chive_10000_phase3")
+model = SDVectors.load("large_vocab_200000")
 
 query = (
     model.get_vector("男性")
