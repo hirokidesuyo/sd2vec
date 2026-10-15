@@ -16,6 +16,7 @@
     <div class="tabs">
       <button id="tab-btn-compare" class="tab-btn active" data-tab="tab-compare">2語の比較</button>
       <button id="tab-btn-equalizer" class="tab-btn" data-tab="tab-equalizer">尺度調整探索</button>
+      <button id="tab-btn-flow" class="tab-btn" data-tab="tab-flow">文章のベクトル軌跡</button>
     </div>
   </header>
 
@@ -94,6 +95,79 @@
         </div>
       </section>
     </div>
+  </section>
+
+  <!-- 文章のベクトル軌跡タブ -->
+  <section id="tab-flow" class="tab-content hidden">
+    <section class="card">
+      <div class="panel-header">
+        <h2>文章のベクトル軌跡（感情動態・物語分析）</h2>
+        <p class="muted">入力された文章をsd2vecの50次元意味空間に投影し、物語やテキストの進行に伴う感情・緊張・倫理観の起伏を時系列グラフとして可視化します。</p>
+      </div>
+
+      <div class="flow-form">
+        <label for="flow-input">解析する文章・テキスト</label>
+        <textarea id="flow-input" rows="8" placeholder="解析したい小説、ストーリー、ブログ、日記などの日本語文章を入力してください..."></textarea>
+      </div>
+
+      <div class="flow-actions-row">
+        <button id="flow-run-btn">ベクトルの流れを解析する</button>
+        <div class="flow-options">
+          <label><input type="checkbox" id="flow-center" checked> 中心化補正（全語彙の平均を減算して感情の起伏を強調）</label>
+        </div>
+      </div>
+
+      <div class="presets" id="flow-presets">
+        <span class="muted" style="font-size:13px; align-self:center;">サンプル:</span>
+        <button class="preset flow-preset-btn" data-preset="melos">走れメロス（太宰治）</button>
+        <button class="preset flow-preset-btn" data-preset="rashomon">羅生門（芥川龍之介）</button>
+        <button class="preset flow-preset-btn" data-preset="momotaro">桃太郎（昔話）</button>
+        <button class="preset flow-preset-btn" data-preset="business">プロジェクトの成功談</button>
+      </div>
+      <p id="flow-error" class="error hidden"></p>
+    </section>
+
+    <!-- 解析結果表示エリア -->
+    <section id="flow-result" class="hidden">
+      <!-- メトリクス -->
+      <section class="card">
+        <div class="metrics">
+          <div class="metric"><small>入力文字数</small><b id="flow-char-count">0</b></div>
+          <div class="metric"><small>認識された概念数</small><b id="flow-concept-count">0</b></div>
+          <div class="metric"><small>語彙抽出カバー率</small><b id="flow-coverage">0%</b></div>
+        </div>
+      </section>
+
+      <!-- グラフカード -->
+      <section class="card">
+        <div class="flow-chart-header">
+          <div>
+            <h2>感情・印象の時系列動態グラフ</h2>
+            <p class="muted" style="font-size:13px;">横軸は文章の進行度（0%〜100%）、縦軸はSD評定スコアです。線にカーソルを合わせると詳細が表示されます。</p>
+          </div>
+          <!-- 表示次元選択バッジ群 -->
+          <div class="flow-dim-selectors" id="flow-dim-selectors"></div>
+        </div>
+
+        <div class="flow-chart-container" id="flow-chart-container">
+          <div id="flow-chart-svg-wrapper"></div>
+          <div id="flow-tooltip" class="flow-tooltip hidden"></div>
+        </div>
+      </section>
+
+      <!-- 山場・起伏ハイライト -->
+      <section class="card">
+        <h2>感情・状態の山と谷（ハイライト）</h2>
+        <div class="flow-highlights-grid" id="flow-highlights"></div>
+      </section>
+
+      <!-- 抽出された単語のタイムライン -->
+      <section class="card">
+        <h2>認識された概念単語のタイムライン</h2>
+        <p class="muted" style="font-size:13px;">文章から抽出され、sd2vec（20万語辞書）にマッチした主要単語の流れです。</p>
+        <div class="flow-word-timeline" id="flow-word-timeline"></div>
+      </section>
+    </section>
   </section>
 
   <!-- 動的オートコンプリート用datalist -->
