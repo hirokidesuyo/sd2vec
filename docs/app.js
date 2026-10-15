@@ -532,6 +532,7 @@ function setupFlowModule() {
 
   // Action buttons
   $("flow-run-btn").addEventListener("click", runFlowAnalysis);
+  $("flow-export-csv-btn").addEventListener("click", exportFlowTrajectoryCSV);
   $("flow-center").addEventListener("change", () => {
     if (currentFlowResult) {
       renderFlowGraphAndHighlights();
@@ -999,6 +1000,52 @@ function renderWordTimeline(wordItems) {
       <small>#${i + 1}</small>
     </span>
   `).join("");
+}
+
+function exportFlowTrajectoryCSV() {
+  if (!currentFlowResult || !model) {
+    alert("先に文章を入力して「ベクトルの流れを解析する」を実行してください。");
+    return;
+  }
+  const applyCenter = $("flow-center").checked;
+  const { points } = computeTrajectory(currentFlowResult.wordItems, applyCenter);
+  if (!points || points.length === 0) {
+    alert("出力可能な軌跡データがありません。");
+    return;
+  }
+
+  // Header row: Progress, Window Range, Words, then all 50 dimensions
+  const headers = [
+    "進行度(%)",
+    "単語インデックス範囲",
+    "区間代表単語",
+    ...model.dimensions.map((d) => `"${d.left}↔${d.right} (${d.id})"`)
+  ];
+
+  const rows = [headers.join(",")];
+
+  // Data rows
+  points.forEach((pt) => {
+    const progress = pt.progress;
+    const range = `#${pt.start + 1}〜#${pt.end}`;
+    const wordsEscaped = `"${pt.words.join("、").replace(/"/g, '""')}"`;
+    const scores = Array.from(pt.vector).map((v) => v.toFixed(3));
+    rows.push([progress, range, wordsEscaped, ...scores].join(","));
+  });
+
+  // UTF-8 BOM (\uFEFF) for Excel compatibility
+  const csvContent = "\uFEFF" + rows.join("\r\n");
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  const now = new Date();
+  const timeStr = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}_${String(now.getHours()).padStart(2, "0")}${String(now.getMinutes()).padStart(2, "0")}`;
+  a.href = url;
+  a.download = `sd2vec_trajectory_${timeStr}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 loadModel().catch((error) => {

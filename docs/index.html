@@ -129,8 +129,15 @@
 
     <!-- 解析結果表示エリア -->
     <section id="flow-result" class="hidden">
-      <!-- メトリクス -->
+      <!-- メトリクス & CSVエクスポート -->
       <section class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:14px;">
+          <h2 style="margin:0;">解析サマリー</h2>
+          <button id="flow-export-csv-btn" class="secondary-btn" style="display:inline-flex; align-items:center; gap:6px; padding:8px 14px; font-size:13px;">
+            <span>📊</span>
+            <span>CSVをダウンロード (軌跡データ)</span>
+          </button>
+        </div>
         <div class="metrics">
           <div class="metric"><small>入力文字数</small><b id="flow-char-count">0</b></div>
           <div class="metric"><small>認識された概念数</small><b id="flow-concept-count">0</b></div>
