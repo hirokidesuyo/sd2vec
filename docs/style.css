@@ -96,10 +96,10 @@ textarea:focus, input:focus { outline:none; border-color:var(--accent); box-shad
 .dim-toggle-btn.active { background:white; color:var(--ink); border-color:#adb5bd; box-shadow:0 1px 4px #00000010; }
 .dim-color-dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
 
-.flow-chart-container { position:relative; width:100%; background:#ffffff; border:1px solid var(--line); border-radius:12px; padding:12px 14px 6px; overflow:hidden; }
+.flow-chart-container { position:relative; width:100%; background:#ffffff; border:1px solid var(--line); border-radius:12px; padding:12px 14px 6px; }
 #flow-chart-svg-wrapper svg { width:100%; height:auto; display:block; }
 
-.flow-tooltip { position:absolute; pointer-events:none; background:rgba(23, 32, 51, 0.94); color:#ffffff; padding:10px 14px; border-radius:8px; font-size:12px; box-shadow:0 4px 18px rgba(0,0,0,0.25); z-index:10; max-width:280px; transform:translate(-50%, -110%); backdrop-filter:blur(4px); transition:opacity .1s ease; }
+.flow-tooltip { position:absolute; pointer-events:none; background:rgba(23, 32, 51, 0.94); color:#ffffff; padding:10px 14px; border-radius:8px; font-size:12px; box-shadow:0 6px 22px rgba(0,0,0,0.3); z-index:20; width:max-content; max-width:320px; backdrop-filter:blur(4px); transition:opacity .08s ease; }
 .flow-tooltip-title { font-weight:700; margin-bottom:6px; border-bottom:1px solid rgba(255,255,255,0.2); padding-bottom:4px; font-size:13px; }
 .flow-tooltip-row { display:flex; justify-content:space-between; gap:10px; margin:2px 0; }
 .flow-tooltip-words { margin-top:8px; padding-top:6px; border-top:1px dashed rgba(255,255,255,0.2); font-size:11px; color:#dce2eb; line-height:1.4; }

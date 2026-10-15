@@ -880,10 +880,27 @@ function setupChartHoverInteraction(points, getX, getY, padLeft, padRight, svgWi
       <div class="flow-tooltip-words">代表語: ${escapeHtml(sampleWords)}</div>
     `;
 
-    // Position tooltip
+    // Smart Tooltip Positioning (never cut off at top, bottom, or edges)
     const leftPercent = (px / svgWidth) * 100;
+    const mouseY = Math.max(10, Math.min(rect.height - 10, e.clientY - rect.top));
+
+    // Horizontal adjustment: flip away from screen edges
+    let translateX = "-50%";
+    if (leftPercent < 22) {
+      translateX = "12px";
+    } else if (leftPercent > 78) {
+      translateX = "calc(-100% - 12px)";
+    }
+
+    // Vertical adjustment: if near the top, flip below the cursor to avoid cutting off
+    let translateY = "calc(-100% - 14px)";
+    if (mouseY < 190) {
+      translateY = "18px";
+    }
+
     tooltip.style.left = `${leftPercent}%`;
-    tooltip.style.top = "18%";
+    tooltip.style.top = `${mouseY}px`;
+    tooltip.style.transform = `translate(${translateX}, ${translateY})`;
     tooltip.classList.remove("hidden");
   };
 
